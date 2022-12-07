@@ -11,12 +11,12 @@ import GameplayKit
 class GameScene: SKScene {
     var touchLeft : Bool = false
     var touchRight : Bool = false
-    var player : SKSpriteNode!
+    //var player : SKSpriteNode!
+    var attAnimation: SKAction!
+    var idleanimation: SKAction!
     //var player : SKSpriteNode!
     //let label = SKLabelNode(text: "Hello SpriteKit!")
-    //let player = SKSpriteNode(imageNamed: "HoboIdle1")
-    var attAnimation:SKAction!
-    var idleanimation:SKAction!
+    let player = SKSpriteNode(imageNamed: "HoboIdle1")
     var background = SKSpriteNode(imageNamed: "back")
     /*@objc func tap(recognizer: UIGestureRecognizer) {
      let viewLocation = recognizer.location(in: view)
@@ -26,11 +26,7 @@ class GameScene: SKScene {
      }*/
     override func didMove(to view: SKView) {
         background.position = CGPoint(x: size.width, y: size.height)
-        // 3
-        player.position = CGPoint(x: size.width * 0.1, y: size.height * 0.5)
-        // 4
-        
-        //addChild(player)
+        addChild(background)
         idleAnimation()
         run(SKAction.repeatForever(
               SKAction.sequence([
@@ -39,8 +35,6 @@ class GameScene: SKScene {
                 ])
             ))
         HoboAttack()
-        
-       // addChild(background)
         //SKAction.removeFromParent()
         //let actionMove = SKAction.run(HoboAttack)
 
@@ -51,25 +45,13 @@ class GameScene: SKScene {
     }
     func HoboAttack()
     {
-        let att1 = SKTexture(imageNamed: "HoboAttack1")
-        /*player = SKSpriteNode(texture: att1)
-        player.size = CGSize(width: 288, height: 192)
-        player.position = CGPoint(x: size.width/2 + 64, y: player.size.height/2)*/
-        let att2 = SKTexture(imageNamed: "HoboAttack2")
-        let att3 = SKTexture(imageNamed: "HoboAttack3")
-        let att4 = SKTexture(imageNamed: "HoboAttack4")
-        let att5 = SKTexture(imageNamed: "HoboAttack5")
-        let att6 = SKTexture(imageNamed: "HoboAttack6")
-        let att7 = SKTexture(imageNamed: "HoboAttack7")
-        let att8 = SKTexture(imageNamed: "HoboAttack8")
-        
-        attAnimation = SKAction.animate(with: [att1, att2, att3, att4, att5,att6,att7,att8], timePerFrame: 0.05)
+        var attArr: [SKTexture] = []
+        for i in 1...8 {
+            attArr.append(SKTexture(imageNamed: "HoboAttack\(i)"))
+        }
+        attAnimation = SKAction.animate(with: attArr, timePerFrame: 0.05)
         if(touchRight){
             player.removeAction(forKey: "animate")
-            //addChild(player)
-            /*let actionMove = SKAction.repeat(attAnimation, count: 1)
-            let actionMoveDone = SKAction.removeFromParent()*/
-            //player.run(SKAction.sequence([actionMove, actionMoveDone]))
             player.run(attAnimation,completion:{
                 self.player.run(self.idleanimation,withKey: "animate")
            })
@@ -81,18 +63,14 @@ class GameScene: SKScene {
     }
     func idleAnimation()
     {
-        let idle1 = SKTexture(imageNamed: "HoboIdle1")
-        //idle = SKSpriteNode(texture: idle1)
+        var idleArr: [SKTexture] = []
+        for i in 1...5 {
+            idleArr.append(SKTexture(imageNamed: "HoboIdle\(i)"))
+        }
+        idleanimation = SKAction.repeatForever(SKAction.animate(with: idleArr, timePerFrame: 0.20))
+        addChild(player)
         player.size = CGSize(width: 128, height: 128)
         player.position = CGPoint(x: size.width/2, y: player.size.height/2)
-        addChild(player)
-        
-        let idle2 = SKTexture(imageNamed: "HoboIdle2")
-        let idle3 = SKTexture(imageNamed: "HoboIdle3")
-        let idle4 = SKTexture(imageNamed: "HoboIdle4")
-        let idle5 = SKTexture(imageNamed: "HoboIdle5")
-        idleanimation = SKAction.repeatForever(SKAction.animate(with: [idle1, idle2, idle3, idle4, idle5], timePerFrame: 0.20))
-        
         player.run(idleanimation, withKey: "animate")
     }
     func random() -> CGFloat {
