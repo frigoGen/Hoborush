@@ -12,7 +12,11 @@ public var deathAnimation : SKAction!
 public var attAnimation: SKAction!
 public var idleanimation: SKAction!
 public var alienWalkingAnimation: SKAction!
-public var alienDAnimation : SKAction!
+public var alienDAnimation1 : SKAction!
+public var alienDAnimation2 : SKAction!
+public var alienDAnimation3 : SKAction!
+public var alienDAnimation : [SKAction] = [alienDAnimation1,alienDAnimation2,alienDAnimation3]
+
 
 struct PhysicsCategory {
   static let none      : UInt32 = 0
@@ -215,7 +219,7 @@ class GameScene: SKScene {
         /*monster.run(SKAction.move(to: CGPoint(x: monsterNoPhysics.position.x, y: monsterNoPhysics.position.y),
                                   duration: TimeInterval(0.0)))*/
         //addChild(monsterNoPhysics)
-        monster.run(alienDAnimation,completion:{
+        monster.run(alienDAnimation.randomElement()!,completion:{
             //self.monsterNoPhysics.texture = SKTexture(imageNamed: "AlienDeath.16")
             print("isDead")
             monster.removeFromParent()

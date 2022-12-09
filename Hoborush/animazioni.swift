@@ -41,9 +41,28 @@ public func HoboAttack(){
     attAnimation = SKAction.animate(with: attArr, timePerFrame: 0.03)
 }
 public func AlienSmarmell(){
-    var alienDArr: [SKTexture] = []
-    for i in 1...16 {
-        alienDArr.append(SKTexture(imageNamed: "AlienDeath.\(i)"))
-    }
-    alienDAnimation = SKAction.animate(with: alienDArr, timePerFrame: 0.03)
+    AlienSmarmell1()
+    AlienSmarmell2()
+    AlienSmarmell3()
 }
+public func AlienSmarmell1(){
+    var alienDArr: [SKTexture] = []
+        for i in 1...16 {
+            alienDArr.append(SKTexture(imageNamed: "AlienDeath.\(i)"))
+        }
+        alienDAnimation1 = SKAction.animate(with: alienDArr, timePerFrame: 0.03)
+    }
+public func AlienSmarmell2(){
+    var alienDArr: [SKTexture] = []
+        for i in 1...16 {
+            alienDArr.append(SKTexture(imageNamed: "AlienDeath2.\(i)"))
+        }
+        alienDAnimation2 = SKAction.animate(with: alienDArr, timePerFrame: 0.03)
+    }
+public func AlienSmarmell3(){
+    var alienDArr: [SKTexture] = []
+        for i in 1...16 {
+            alienDArr.append(SKTexture(imageNamed: "AlienDeath3.\(i)"))
+        }
+        alienDAnimation3 = SKAction.animate(with: alienDArr, timePerFrame: 0.03)
+    }
