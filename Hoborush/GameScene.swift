@@ -93,11 +93,15 @@ class GameScene: SKScene {
     player.removeAction(forKey: "animate")
     player.size = CGSize(width: 254, height: 182)
     player.position = CGPoint(x: self.size.width/2, y: self.size.height/2 + 30)
-    player.run(attAnimation,completion:{
-        self.player.position = CGPoint(x: self.size.width/2, y: self.size.height/2)
-        self.player.size = CGSize(width: 128, height: 128)
-        self.player.run(idleanimation,withKey: "animate")
-    })
+        if(wasHit == false){
+            wasHit = true
+            player.run(attAnimation,completion:{
+            self.player.position = CGPoint(x: self.size.width/2, y: self.size.height/2)
+            self.player.size = CGSize(width: 128, height: 128)
+            self.player.run(idleanimation,withKey: "animate")
+            self.wasHit = false
+        })
+        }
     }
    public func Die(){
     player.removeAction(forKey: "animate")
@@ -202,7 +206,7 @@ class GameScene: SKScene {
     }
     func baseballBatDidCollideWithMonster(player: SKSpriteNode, monster: SKSpriteNode) {
       print("Hit")
-        wasHit = true
+        //wasHit = true
         //let actionMove = SKAction.
         //monster.run(actionMove)
         monster.removeAction(forKey: "alienWalk")
