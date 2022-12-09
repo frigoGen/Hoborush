@@ -99,10 +99,11 @@ class GameScene: SKScene {
         self.player.run(idleanimation,withKey: "animate")
     })
     }
-    func Die(){
+   public func Die(){
     player.removeAction(forKey: "animate")
     player.run(deathAnimation,completion:{
-        self.player.run(idleanimation,withKey: "animate")
+        //self.player.run(idleanimation,withKey: "animate")
+        SKAction.wait(forDuration: 3.0)
     })
     }
     func Idle(){
@@ -175,6 +176,15 @@ class GameScene: SKScene {
         monster.physicsBody?.contactTestBitMask = PhysicsCategory.player // 4
         monster.physicsBody?.collisionBitMask = PhysicsCategory.none // 5
         // Determine speed of the monster
+       /* monster.physicsBody?.velocity = self.physicsBody!.velocity
+        if(num == 0){
+            monster.physicsBody?.applyImpulse(CGVector(dx: -1 * random(min: 3.0, max: 5.0),dy: 0))
+            
+        }
+        else{
+            monster.physicsBody?.applyImpulse(CGVector(dx: random(min: 3.0, max: 5.0),dy: 0))
+            
+        }*/
         let actualDuration = random(min: CGFloat(2.0), max: CGFloat(4.0))
         
         // Create the actions
@@ -187,7 +197,7 @@ class GameScene: SKScene {
             let gameOverScene = GameOverScene(size: self.size, won: false)
           self.view?.presentScene(gameOverScene, transition: reveal)
         }
-        monster.run(SKAction.sequence([actionMove, loseAction, actionMoveDone]))
+        monster.run(SKAction.sequence([actionMove,loseAction,actionMoveDone]))
 
     }
     func baseballBatDidCollideWithMonster(player: SKSpriteNode, monster: SKSpriteNode) {
@@ -196,18 +206,22 @@ class GameScene: SKScene {
         //let actionMove = SKAction.
         //monster.run(actionMove)
         monster.removeAction(forKey: "alienWalk")
-        monsterNoPhysics.position = monster.position
-        monster.run(SKAction.move(to: CGPoint(x: monsterNoPhysics.position.x, y: monsterNoPhysics.position.y),
-                                  duration: TimeInterval(0.0)))
-        addChild(monsterNoPhysics)
-        monsterNoPhysics.run(alienDAnimation,completion:{
-            self.monsterNoPhysics.texture = SKTexture(imageNamed: "AlienDeath.16")
-            self.monsterNoPhysics.removeFromParent()
+        //monsterNoPhysics.position = monster.position
+        
+        /*monster.run(SKAction.move(to: CGPoint(x: monsterNoPhysics.position.x, y: monsterNoPhysics.position.y),
+                                  duration: TimeInterval(0.0)))*/
+        //addChild(monsterNoPhysics)
+        monster.run(alienDAnimation,completion:{
+            //self.monsterNoPhysics.texture = SKTexture(imageNamed: "AlienDeath.16")
+            print("isDead")
+            monster.removeFromParent()
         })
+        
+        //monsterNoPhysics.removeFromParent()
         monstersDestroyed += 1
-        if monstersDestroyed > 10 {
+        if monstersDestroyed >= 10 {
           let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
-          let gameOverScene = GameOverScene(size: self.size, won: true)
+            let gameOverScene = GameOverScene(size: self.size, won: true)
           view?.presentScene(gameOverScene, transition: reveal)
         }
 
@@ -233,7 +247,6 @@ extension GameScene: SKPhysicsContactDelegate {
           let player = secondBody.node as? SKSpriteNode {
             if((touchRight == true && monster.position.x > size.width/2) || (touchLeft == true && monster.position.x<size.width/2)){
                 baseballBatDidCollideWithMonster(player: player, monster: monster)
-                
                 if(touchLeft){touchLeft = false}
                 else{touchRight = false}
             }

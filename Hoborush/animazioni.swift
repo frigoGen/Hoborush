@@ -21,7 +21,7 @@ public func AlienWalkAn()
     for i in 1...7 {
         alienWArr.append(SKTexture(imageNamed: "AlienWalking\(i)"))
     }
-    alienWalkingAnimation = SKAction.repeatForever(SKAction.animate(with: alienWArr, timePerFrame: 0.7))
+    alienWalkingAnimation = SKAction.repeatForever(SKAction.animate(with: alienWArr, timePerFrame: 0.1))
 }
 public func idleAnimation()
 {
@@ -45,5 +45,5 @@ public func AlienSmarmell(){
     for i in 1...16 {
         alienDArr.append(SKTexture(imageNamed: "AlienDeath.\(i)"))
     }
-    alienDAnimation = SKAction.animate(with: alienDArr, timePerFrame: 0.08)
+    alienDAnimation = SKAction.animate(with: alienDArr, timePerFrame: 0.03)
 }
