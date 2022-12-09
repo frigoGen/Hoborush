@@ -13,7 +13,7 @@ public func deathAn()
     for i in 1...13 {
         deadArr.append(SKTexture(imageNamed: "HoboDying\(i)"))
     }
-    deathAnimation = SKAction.animate(with: deadArr, timePerFrame: 0.03)
+    deathAnimation = SKAction.animate(with: deadArr, timePerFrame: 0.1)
 }
 public func AlienWalkAn()
 {
@@ -21,7 +21,7 @@ public func AlienWalkAn()
     for i in 1...7 {
         alienWArr.append(SKTexture(imageNamed: "AlienWalking\(i)"))
     }
-    alienWalkingAnimation = SKAction.repeatForever(SKAction.animate(with: alienWArr, timePerFrame: 0.03))
+    alienWalkingAnimation = SKAction.repeatForever(SKAction.animate(with: alienWArr, timePerFrame: 0.7))
 }
 public func idleAnimation()
 {
@@ -39,4 +39,11 @@ public func HoboAttack(){
         attArr.append(SKTexture(imageNamed: "HoboAttack\(i)"))
     }
     attAnimation = SKAction.animate(with: attArr, timePerFrame: 0.03)
+}
+public func AlienSmarmell(){
+    var alienDArr: [SKTexture] = []
+    for i in 1...16 {
+        alienDArr.append(SKTexture(imageNamed: "AlienDeath.\(i)"))
+    }
+    alienDAnimation = SKAction.animate(with: alienDArr, timePerFrame: 0.08)
 }

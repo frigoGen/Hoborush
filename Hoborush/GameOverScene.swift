@@ -5,7 +5,7 @@
 //  Created by Ferdinando Carbone on 08/12/22.
 //
 
-/*import SpriteKit
+import SpriteKit
 
 public class GameOverScene: SKScene {
   init(size: CGSize, won:Bool) {
@@ -42,5 +42,5 @@ public class GameOverScene: SKScene {
   required init(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
-}*/
+}
 
