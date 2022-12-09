@@ -219,7 +219,7 @@ extension GameScene: SKPhysicsContactDelegate {
       var firstBody: SKPhysicsBody
       var secondBody: SKPhysicsBody
       if contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask {
-        firstBody = contact.bodyA
+          firstBody = contact.bodyA
         secondBody = contact.bodyB
       } else {
         firstBody = contact.bodyB
@@ -239,6 +239,9 @@ extension GameScene: SKPhysicsContactDelegate {
             }
         }
       }
+        
+        let player = firstBody.node
+        let monster = secondBody.node
     }
 
 }
