@@ -8,11 +8,11 @@
 import SpriteKit
 
 public class GameOverScene: SKScene {
-  init(size: CGSize, won:Bool) {
+    init(size: CGSize, won:Bool) {
     super.init(size: size)
     
     // 1
-    backgroundColor = SKColor.white
+      backgroundColor = SKColor.gray
     
     // 2
     let message = won ? "You Won!" : "You Lose :["
@@ -20,11 +20,17 @@ public class GameOverScene: SKScene {
     // 3
     let label = SKLabelNode(fontNamed: "Chalkduster")
     label.text = message
-    label.fontSize = 40
-    label.fontColor = SKColor.black
-    label.position = CGPoint(x: size.width/2, y: size.height/2)
+    label.fontSize = 20
+    label.fontColor = SKColor.white
+        label.position = CGPoint(x: size.width/4, y: size.height - 20)
     addChild(label)
-    
+        if(!won){
+            let player = SKSpriteNode(imageNamed: "HoboDying1")
+            player.size = CGSize(width: 128, height: 128)
+            player.position = CGPoint(x: size.width/2, y: size.height/2)
+            addChild(player)
+            player.run(deathAnimation, withKey: "die")
+        }
     // 4
     run(SKAction.sequence([
       SKAction.wait(forDuration: 3.0),
