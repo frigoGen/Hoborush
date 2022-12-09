@@ -173,21 +173,30 @@ class GameScene: SKScene {
         monster.physicsBody?.isDynamic = true // 2
         monster.physicsBody?.categoryBitMask = PhysicsCategory.monster // 3
         monster.physicsBody?.contactTestBitMask = PhysicsCategory.player // 4
-        monster.physicsBody?.collisionBitMask = PhysicsCategory.none // 5
+        //monster.physicsBody?.collisionBitMask = PhysicsCategory.none // 5
         // Determine speed of the monster
-        let actualDuration = random(min: CGFloat(2.0), max: CGFloat(4.0))
+        monster.physicsBody?.velocity = self.physicsBody!.velocity
+        if(num == 0){
+            monster.physicsBody?.applyImpulse(CGVector(dx: -1 * random(min: 3.0, max: 5.0),dy: 0))
+            
+        }
+        else{
+            monster.physicsBody?.applyImpulse(CGVector(dx: random(min: 3.0, max: 5.0),dy: 0))
+            
+        }
+        //let actualDuration = random(min: CGFloat(2.0), max: CGFloat(4.0))
         
         // Create the actions
-        let actionMove = SKAction.move(to: CGPoint(x: size.width/2, y: actualY),
+        /*let actionMove = SKAction.move(to: CGPoint(x: size.width/2, y: actualY),
                                        duration: TimeInterval(actualDuration))
-            actionMoveDone = SKAction.removeFromParent()
+            actionMoveDone = SKAction.removeFromParent()*/
         let loseAction = SKAction.run() { [weak self] in
           guard let `self` = self else { return }
           let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
             let gameOverScene = GameOverScene(size: self.size, won: false)
           self.view?.presentScene(gameOverScene, transition: reveal)
         }
-        monster.run(SKAction.sequence([actionMove, loseAction, actionMoveDone]))
+        //monster.run(loseAction)
 
     }
     func baseballBatDidCollideWithMonster(player: SKSpriteNode, monster: SKSpriteNode) {
