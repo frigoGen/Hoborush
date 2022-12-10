@@ -17,7 +17,6 @@ public var alienDAnimation2 : SKAction!
 public var alienDAnimation3 : SKAction!
 public var alienDAnimation : [SKAction] = [alienDAnimation1,alienDAnimation2,alienDAnimation3]
 
-
 struct PhysicsCategory {
   static let none      : UInt32 = 0
   static let all       : UInt32 = UInt32.max
@@ -30,21 +29,27 @@ class GameScene: SKScene {
     var touchRight : Bool = false
     var turn : Bool = false
     var wasHit: Bool = false
-    var monsterNoPhysics = SKSpriteNode(imageNamed: "AlienDeath.1")
+    //var monsterNoPhysics = SKSpriteNode(imageNamed: "AlienDeath.1")
     var monstersDestroyed = 0
-    //let label = SKLabelNode(text: "Hello SpriteKit!")
+    var score:Int = 0
     var player = SKSpriteNode(imageNamed: "HoboIdle1")
-    var background = SKSpriteNode(imageNamed: "back")
+    //var background = SKSpriteNode(imageNamed: "back")
+    
     override func didMove(to view: SKView) {
-        background.position = CGPoint(x: size.width, y: size.height)
+        var scoreShower = SKLabelNode(text: "\(score)")
+        //background.position = CGPoint(x: size.width, y: size.height)
         // addChild(background)
-        monsterNoPhysics.size = CGSize(width: 128.0, height: 128.0)
-        idleAnimation()
+        //monsterNoPhysics.size = CGSize(width: 128.0, height: 128.0)
         AlienWalkAn()
         deathAn()
         HoboAttack()
-        Idle()
         AlienSmarmell()
+        idleAnimation()
+        Idle()
+        scoreShower.fontName = "Emulogic"
+        scoreShower.fontSize = 20
+        scoreShower.position = CGPoint(x: frame.width/2,y: frame.maxY - (2.0*scoreShower.fontSize))
+        addChild(scoreShower)
         run(SKAction.repeatForever(
             SKAction.sequence([
                 SKAction.run(addMonster),
@@ -59,6 +64,8 @@ class GameScene: SKScene {
     }
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
+        score = monstersDestroyed * 100
+        
     }
     /*func alienDie(monster: SKNode){
         /*if(monster.position.x < size.width/2){
@@ -114,6 +121,14 @@ class GameScene: SKScene {
         SKAction.wait(forDuration: 3.0)
     })
     }
+    func MainMenu(){
+        SKAction.run() { [weak self] in
+            guard let `self` = self else { return }
+            let reveal = SKTransition.fade(withDuration: 0.5)
+            let gameOverScene = MainMenuScene(size: self.size)
+            self.view?.presentScene(gameOverScene, transition: reveal)
+        }
+    }
     func Idle(){
         player.size = CGSize(width: 128, height: 128)
         player.position = CGPoint(x: size.width/2, y: size.height/2)
@@ -121,12 +136,12 @@ class GameScene: SKScene {
         addChild(player)
         physicsWorld.gravity = .zero
         physicsWorld.contactDelegate = self
-        player.physicsBody = SKPhysicsBody(rectangleOf: player.size)
+        player.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 0.80*player.size.width, height: player.size.height))
         player.physicsBody?.isDynamic = true
         player.physicsBody?.categoryBitMask = PhysicsCategory.player
         player.physicsBody?.contactTestBitMask = PhysicsCategory.monster
         player.physicsBody?.collisionBitMask = PhysicsCategory.none
-        player.physicsBody?.usesPreciseCollisionDetection = false
+        player.physicsBody?.usesPreciseCollisionDetection = true
     }
     func random() -> CGFloat {
         return CGFloat(Float(arc4random()) / 0xFFFFFFFF)
@@ -137,7 +152,6 @@ class GameScene: SKScene {
     override func touchesBegan(_ touches: Set<UITouch>,with event: UIEvent?){
         for touch in (touches) {
             let location = touch.location(in: self)
-
             if(location.x < size.width/2){
                 touchLeft = true
                 touchRight = false
@@ -201,7 +215,7 @@ class GameScene: SKScene {
             actionMoveDone = SKAction.removeFromParent()
         let loseAction = SKAction.run() { [weak self] in
           guard let `self` = self else { return }
-          let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
+            let reveal = SKTransition.fade(withDuration: 0.5)
             let gameOverScene = GameOverScene(size: self.size, won: false)
           self.view?.presentScene(gameOverScene, transition: reveal)
         }
@@ -260,9 +274,6 @@ extension GameScene: SKPhysicsContactDelegate {
             }
         }
       }
-        
-        let player = firstBody.node
-        let monster = secondBody.node
     }
 
 }
