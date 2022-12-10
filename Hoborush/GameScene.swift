@@ -31,14 +31,21 @@ class GameScene: SKScene {
     var wasHit: Bool = false
     //var monsterNoPhysics = SKSpriteNode(imageNamed: "AlienDeath.1")
     var monstersDestroyed = 0
-    var score:Int = 0
+    
+    var scoreShower: SKLabelNode!
+    var score = 0 {
+        didSet {
+        scoreShower.text = "\(score)"
+    }
+}
     var player = SKSpriteNode(imageNamed: "HoboIdle1")
-    //var background = SKSpriteNode(imageNamed: "back")
+    var background = SKSpriteNode(imageNamed: "back")
     
     override func didMove(to view: SKView) {
-        var scoreShower = SKLabelNode(text: "\(score)")
-        //background.position = CGPoint(x: size.width, y: size.height)
-        // addChild(background)
+        
+        background.position = CGPoint(x: size.width, y: size.height)
+        background.zPosition = 0
+        addChild(background)
         //monsterNoPhysics.size = CGSize(width: 128.0, height: 128.0)
         AlienWalkAn()
         deathAn()
@@ -46,10 +53,6 @@ class GameScene: SKScene {
         AlienSmarmell()
         idleAnimation()
         Idle()
-        scoreShower.fontName = "Emulogic"
-        scoreShower.fontSize = 20
-        scoreShower.position = CGPoint(x: frame.width/2,y: frame.maxY - (2.0*scoreShower.fontSize))
-        addChild(scoreShower)
         run(SKAction.repeatForever(
             SKAction.sequence([
                 SKAction.run(addMonster),
@@ -59,8 +62,11 @@ class GameScene: SKScene {
         //HoboAttack()
         //SKAction.removeFromParent()
         //let actionMove = SKAction.run(HoboAttack)
-        
-        
+        scoreShower = SKLabelNode(text: "\(score)")
+        scoreShower.fontName = "Emulogic"
+        scoreShower.fontSize = 20
+        scoreShower.position = CGPoint(x: frame.width/2,y: frame.maxY - (2.0*scoreShower.fontSize))
+        addChild(scoreShower)
     }
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
@@ -130,6 +136,7 @@ class GameScene: SKScene {
         }
     }
     func Idle(){
+        player.zPosition = 2
         player.size = CGSize(width: 128, height: 128)
         player.position = CGPoint(x: size.width/2, y: size.height/2)
         player.run(idleanimation, withKey: "animate")
@@ -185,6 +192,7 @@ class GameScene: SKScene {
         }
         // Position the monster slightly off-screen along the right edge,
         // and along a random position along the Y axis as calculated above
+        monster.zPosition = 2
         monster.position = CGPoint(x: num*(size.width), y: actualY)
         monster.run(alienWalkingAnimation,withKey: "alienWalk")
         if(!(monster.position.x > 0)){

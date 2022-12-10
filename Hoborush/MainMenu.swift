@@ -12,6 +12,7 @@ public class MainMenuScene: SKScene {
     var playButton = SKSpriteNode()
     let playButtonTex = SKTexture(imageNamed: "startGame-export")
     var title = SKSpriteNode(imageNamed: "title1")
+    var back
     public override func didMove(to view: SKView) {
 
         playButton = SKSpriteNode(texture: playButtonTex)

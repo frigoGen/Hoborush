@@ -13,6 +13,7 @@
 		6E1FD3CF2943BC2B001DC7B6 /* GameViewController.swift 19-51-58-488.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1FD3CE2943BC2B001DC7B6 /* GameViewController.swift 19-51-58-488.swift */; };
 		6E1FD3D129441CCB001DC7B6 /* GameStartUPScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1FD3D029441CCB001DC7B6 /* GameStartUPScene.swift */; };
 		6E1FD3D329441CF5001DC7B6 /* GameStartUPScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 6E1FD3D229441CF5001DC7B6 /* GameStartUPScene.sks */; };
+		6E1FD3D52944435A001DC7B6 /* Emulogic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6E1FD3D42944435A001DC7B6 /* Emulogic.ttf */; };
 		6EAA9F60293F3E4F00D61127 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EAA9F5F293F3E4F00D61127 /* AppDelegate.swift */; };
 		6EAA9F62293F3E4F00D61127 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 6EAA9F61293F3E4F00D61127 /* GameScene.sks */; };
 		6EAA9F64293F3E4F00D61127 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 6EAA9F63293F3E4F00D61127 /* Actions.sks */; };
@@ -29,6 +30,8 @@
 		6E1FD3CE2943BC2B001DC7B6 /* GameViewController.swift 19-51-58-488.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GameViewController.swift 19-51-58-488.swift"; sourceTree = "<group>"; };
 		6E1FD3D029441CCB001DC7B6 /* GameStartUPScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStartUPScene.swift; sourceTree = "<group>"; };
 		6E1FD3D229441CF5001DC7B6 /* GameStartUPScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameStartUPScene.sks; sourceTree = "<group>"; };
+		6E1FD3D42944435A001DC7B6 /* Emulogic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Emulogic.ttf; sourceTree = "<group>"; };
+		6E1FD3D6294443CC001DC7B6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		6EAA9F5C293F3E4F00D61127 /* Hoborush.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hoborush.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6EAA9F5F293F3E4F00D61127 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6EAA9F61293F3E4F00D61127 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -69,6 +72,8 @@
 		6EAA9F5E293F3E4F00D61127 /* Hoborush */ = {
 			isa = PBXGroup;
 			children = (
+				6E1FD3D6294443CC001DC7B6 /* Info.plist */,
+				6E1FD3D42944435A001DC7B6 /* Emulogic.ttf */,
 				6EAA9F5F293F3E4F00D61127 /* AppDelegate.swift */,
 				6EAA9F63293F3E4F00D61127 /* Actions.sks */,
 				6E1FD3D029441CCB001DC7B6 /* GameStartUPScene.swift */,
@@ -148,6 +153,7 @@
 				6EAA9F6B293F3E4F00D61127 /* Main.storyboard in Resources */,
 				6EAA9F62293F3E4F00D61127 /* GameScene.sks in Resources */,
 				6EAA9F6D293F3E5000D61127 /* Assets.xcassets in Resources */,
+				6E1FD3D52944435A001DC7B6 /* Emulogic.ttf in Resources */,
 				6EAA9F70293F3E5000D61127 /* LaunchScreen.storyboard in Resources */,
 				6EAA9F64293F3E4F00D61127 /* Actions.sks in Resources */,
 			);
@@ -315,6 +321,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 32HCCGTS8W;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Hoborush/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = HoboRush;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.arcade-games";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -324,6 +331,7 @@
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -349,6 +357,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 32HCCGTS8W;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Hoborush/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = HoboRush;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.arcade-games";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -358,6 +367,7 @@
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
