@@ -8,14 +8,14 @@
 import SpriteKit
 
 
-public class MainMenuScene: SKScene {
-    var playButton = SKSpriteNode()
-    let playButtonTex = SKTexture(imageNamed: "startGame-export")
+class MainMenuScene: SKScene {
+    var playButton = SKSpriteNode(imageNamed: "startGame-export")
+    //let playButtonTex = SKTexture(imageNamed: "startGame-export")
     var title = SKSpriteNode(imageNamed: "title1")
-    var back
-    public override func didMove(to view: SKView) {
-
-        playButton = SKSpriteNode(texture: playButtonTex)
+    
+    //var back
+     override func didMove(to view: SKView) {
+        //playButton = SKSpriteNode(texture: playButtonTex)
         title.position = CGPoint(x: frame.midX, y: frame.maxY-title.size.height)
         playButton.position = CGPoint(x: frame.midX, y: frame.minY+playButton.size.height/2)
         playButton.size = CGSize(width: 150, height: 40)
@@ -23,7 +23,7 @@ public class MainMenuScene: SKScene {
         self.addChild(title)
     }
 
-    public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             let pos = touch.location(in: self)
             let node = self.atPoint(pos)

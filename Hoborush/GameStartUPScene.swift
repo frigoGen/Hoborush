@@ -16,7 +16,6 @@ class GameStartUPScene: SKScene {
         override func didMove(to view: SKView) {
             introAnim()
             teamAnim()
-            print("Ready")
             let transition:SKTransition = SKTransition.fade(withDuration: 3.0)
             let scene:SKScene = MainMenuScene(size: self.size)
             //label.position = CGPoint(x: 100,y: 33)
@@ -31,8 +30,8 @@ class GameStartUPScene: SKScene {
             addChild(creatividad)
             Backbone.run(introAnima)
             creatividad.run(teamAnima,completion: {
+                SKAction.wait(forDuration: 5.0)
                 print("wowwww")
-                //SKAction.wait(forDuration: 200.0)
                 self.view?.presentScene(scene, transition: transition)
             })
             //Backbone.removeFromParent()

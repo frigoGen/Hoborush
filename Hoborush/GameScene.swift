@@ -31,7 +31,6 @@ class GameScene: SKScene {
     var wasHit: Bool = false
     //var monsterNoPhysics = SKSpriteNode(imageNamed: "AlienDeath.1")
     var monstersDestroyed = 0
-    
     var scoreShower: SKLabelNode!
     var score = 0 {
         didSet {
@@ -70,7 +69,7 @@ class GameScene: SKScene {
     }
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
-        score = monstersDestroyed * 100
+        //score = monstersDestroyed * 100
         
     }
     /*func alienDie(monster: SKNode){

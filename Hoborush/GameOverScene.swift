@@ -8,7 +8,7 @@
 import SpriteKit
 import UIKit
 
-public class GameOverScene: SKScene {
+class GameOverScene: SKScene {
     init(size: CGSize, won:Bool) {
     super.init(size: size)
         
@@ -32,7 +32,7 @@ public class GameOverScene: SKScene {
             addChild(player)
             player.run(deathAnimation, withKey: "die")
             print("amDead")
-             scene = MainMenuScene(size: size)
+            scene = MainMenuScene(size: size)
         }
         else if(won){
             scene = GameScene(size:size)
