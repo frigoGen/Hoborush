@@ -16,7 +16,12 @@ public var alienDAnimation1 : SKAction!
 public var alienDAnimation2 : SKAction!
 public var alienDAnimation3 : SKAction!
 public var alienDAnimation : [SKAction] = [alienDAnimation1,alienDAnimation2,alienDAnimation3]
-
+       var scoreShower: SKLabelNode!
+public var score = 0 {
+    didSet {
+    scoreShower.text = "\(score)"
+}
+}
 struct PhysicsCategory {
   static let none      : UInt32 = 0
   static let all       : UInt32 = UInt32.max
@@ -30,12 +35,6 @@ class GameScene: SKScene {
     var turn : Bool = false
     var wasHit: Bool = false
     var monstersDestroyed = 0
-    var scoreShower: SKLabelNode!
-    var score = 0 {
-        didSet {
-        scoreShower.text = "\(score)"
-    }
-}
     var player = SKSpriteNode(imageNamed: "HoboIdle1")
     var background = SKSpriteNode(imageNamed: "back")
     
@@ -223,7 +222,7 @@ class GameScene: SKScene {
         let loseAction = SKAction.run() { [weak self] in
           guard let `self` = self else { return }
             let reveal = SKTransition.fade(withDuration: 0.5)
-            let gameOverScene = GameOverScene(size: self.size, won: false)
+            let gameOverScene = GameOverScene(size: self.size, won: false, incredibile: score)
           self.view?.presentScene(gameOverScene, transition: reveal)
         }
         monster.run(SKAction.sequence([actionMove,loseAction,actionMoveDone]))
@@ -251,7 +250,7 @@ class GameScene: SKScene {
         score = monstersDestroyed * 100
         if monstersDestroyed >= 10 {
           let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
-            let gameOverScene = GameOverScene(size: self.size, won: true)
+            let gameOverScene = GameOverScene(size: self.size, won: true, incredibile: score)
           view?.presentScene(gameOverScene, transition: reveal)
         }
 

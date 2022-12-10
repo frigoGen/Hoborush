@@ -14,6 +14,8 @@
 		6E1FD3D129441CCB001DC7B6 /* GameStartUPScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1FD3D029441CCB001DC7B6 /* GameStartUPScene.swift */; };
 		6E1FD3D329441CF5001DC7B6 /* GameStartUPScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 6E1FD3D229441CF5001DC7B6 /* GameStartUPScene.sks */; };
 		6E1FD3D52944435A001DC7B6 /* Emulogic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6E1FD3D42944435A001DC7B6 /* Emulogic.ttf */; };
+		6E41709A2944AA8D00B0FBF9 /* LeaderBoardScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4170992944AA8D00B0FBF9 /* LeaderBoardScene.swift */; };
+		6E41709C2944AAE300B0FBF9 /* LeaderBoardFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E41709B2944AAE300B0FBF9 /* LeaderBoardFunctions.swift */; };
 		6EAA9F60293F3E4F00D61127 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EAA9F5F293F3E4F00D61127 /* AppDelegate.swift */; };
 		6EAA9F62293F3E4F00D61127 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 6EAA9F61293F3E4F00D61127 /* GameScene.sks */; };
 		6EAA9F64293F3E4F00D61127 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 6EAA9F63293F3E4F00D61127 /* Actions.sks */; };
@@ -32,6 +34,8 @@
 		6E1FD3D229441CF5001DC7B6 /* GameStartUPScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameStartUPScene.sks; sourceTree = "<group>"; };
 		6E1FD3D42944435A001DC7B6 /* Emulogic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Emulogic.ttf; sourceTree = "<group>"; };
 		6E1FD3D6294443CC001DC7B6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		6E4170992944AA8D00B0FBF9 /* LeaderBoardScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderBoardScene.swift; sourceTree = "<group>"; };
+		6E41709B2944AAE300B0FBF9 /* LeaderBoardFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderBoardFunctions.swift; sourceTree = "<group>"; };
 		6EAA9F5C293F3E4F00D61127 /* Hoborush.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hoborush.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6EAA9F5F293F3E4F00D61127 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6EAA9F61293F3E4F00D61127 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -56,6 +60,8 @@
 		6EAA9F53293F3E4F00D61127 = {
 			isa = PBXGroup;
 			children = (
+				6E41709B2944AAE300B0FBF9 /* LeaderBoardFunctions.swift */,
+				6E4170992944AA8D00B0FBF9 /* LeaderBoardScene.swift */,
 				6EAA9F5E293F3E4F00D61127 /* Hoborush */,
 				6EAA9F5D293F3E4F00D61127 /* Products */,
 			);
@@ -170,6 +176,8 @@
 				6E1FD3C9294392EA001DC7B6 /* MainMenu.swift in Sources */,
 				6E1FD3C52942A0C0001DC7B6 /* animazioni.swift in Sources */,
 				6E1FD3C329429AF3001DC7B6 /* GameOverScene.swift in Sources */,
+				6E41709C2944AAE300B0FBF9 /* LeaderBoardFunctions.swift in Sources */,
+				6E41709A2944AA8D00B0FBF9 /* LeaderBoardScene.swift in Sources */,
 				6E1FD3D129441CCB001DC7B6 /* GameStartUPScene.swift in Sources */,
 				6E1FD3CF2943BC2B001DC7B6 /* GameViewController.swift 19-51-58-488.swift in Sources */,
 				6EAA9F60293F3E4F00D61127 /* AppDelegate.swift in Sources */,

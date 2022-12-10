@@ -8,14 +8,22 @@
 import SpriteKit
 import UIKit
 
+public struct salvataggio{
+    var punti: Int
+    var nome: String
+}
 class GameOverScene: SKScene {
-    init(size: CGSize, won:Bool) {
+    init(size: CGSize, won:Bool, incredibile: Int) {
     super.init(size: size)
         
-    // 1
-      backgroundColor = SKColor.gray
+    var giocatore = salvataggio(punti: 0, nome: "ABCD")
+        giocatore.punti = 0
+        giocatore.nome = "ABCD"
+        giocatore.punti = incredibile
+    backgroundColor = SKColor.gray
     
     // 2
+    
     let message = won ? "You Won!" : "You Lose :["
     var scene: SKScene!
     // 3
@@ -32,7 +40,8 @@ class GameOverScene: SKScene {
             addChild(player)
             player.run(deathAnimation, withKey: "die")
             print("amDead")
-            scene = MainMenuScene(size: size)
+            updateHighScore(nome: giocatore.nome, scores: giocatore.punti)
+            scene = LeaderBoardScene(size: size, pescatore: giocatore)
         }
         else if(won){
             scene = GameScene(size:size)
@@ -49,6 +58,14 @@ class GameOverScene: SKScene {
       ]))
    }
   
+    /*func EndGame() -> Void{
+        guard nome == readLine() else{ nome = "ABCD"
+            return
+        }
+        updateHighScore(with:(name: nome, value: score))
+        LeaderBoardScene().pescatore = (nome,score)
+        
+    }*/
   // 6
   required init(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
