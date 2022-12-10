@@ -6,17 +6,18 @@
 //
 
 import SpriteKit
+import UIKit
 
 public class GameOverScene: SKScene {
     init(size: CGSize, won:Bool) {
     super.init(size: size)
-    
+        
     // 1
       backgroundColor = SKColor.gray
     
     // 2
     let message = won ? "You Won!" : "You Lose :["
-    
+    var scene: SKScene!
     // 3
     let label = SKLabelNode(fontNamed: "Chalkduster")
     label.text = message
@@ -30,6 +31,11 @@ public class GameOverScene: SKScene {
             player.position = CGPoint(x: size.width/2, y: size.height/2)
             addChild(player)
             player.run(deathAnimation, withKey: "die")
+            print("amDead")
+             scene = MainMenuScene(size: size)
+        }
+        else if(won){
+            scene = GameScene(size:size)
         }
     // 4
     run(SKAction.sequence([
@@ -37,8 +43,7 @@ public class GameOverScene: SKScene {
       SKAction.run() { [weak self] in
         // 5
         guard let `self` = self else { return }
-        let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
-        let scene = GameScene(size: size)
+        let reveal = SKTransition.fade(withDuration: 0.5)
         self.view?.presentScene(scene, transition:reveal)
       }
       ]))

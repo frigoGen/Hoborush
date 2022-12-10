@@ -66,3 +66,10 @@ public func AlienSmarmell3(){
         }
         alienDAnimation3 = SKAction.animate(with: alienDArr, timePerFrame: 0.03)
     }
+public func introAnim(){
+    var introArr: [SKTexture] = []
+        for i in 1...9 {
+            introArr.append(SKTexture(imageNamed: "Intro\(i)"))
+        }
+        introAnima = SKAction.animate(with: introArr, timePerFrame: 0.03)
+}
