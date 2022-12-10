@@ -1,6 +1,7 @@
 {
   "images" : [
     {
+      "compression-type" : "gpu-optimized-smallest",
       "filename" : "Intro3.png",
       "idiom" : "universal",
       "scale" : "1x"

@@ -7,6 +7,7 @@
 
 import SpriteKit
 import UIKit
+
 public var introAnima: SKAction!
 public var teamAnima: SKAction!
 class GameStartUPScene: SKScene {
@@ -21,7 +22,7 @@ class GameStartUPScene: SKScene {
             //label.position = CGPoint(x: 100,y: 33)
             Backbone.position = CGPoint(x: size.width/2, y: size.height/2)
             Backbone.size = CGSize(width: size.width, height: size.height)
-            Backbone.zPosition = 0
+            Backbone.zPosition = 1
             creatividad.zPosition = 2
             creatividad.position = CGPoint(x: size.width/2, y: size.height/2 )
             creatividad.size = CGSize(width: size.width/2, height: size.height/2)
@@ -30,9 +31,10 @@ class GameStartUPScene: SKScene {
             addChild(creatividad)
             Backbone.run(introAnima)
             creatividad.run(teamAnima,completion: {
-                SKAction.wait(forDuration: 5.0)
+                //wait(forDuration: 2000.0)
                 print("wowwww")
-                self.view?.presentScene(scene, transition: transition)
+                //self.creatividad.removeFromParent()
+                self.view!.presentScene(scene, transition: transition)
             })
             //Backbone.removeFromParent()
             

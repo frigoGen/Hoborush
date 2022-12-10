@@ -29,7 +29,6 @@ class GameScene: SKScene {
     var touchRight : Bool = false
     var turn : Bool = false
     var wasHit: Bool = false
-    //var monsterNoPhysics = SKSpriteNode(imageNamed: "AlienDeath.1")
     var monstersDestroyed = 0
     var scoreShower: SKLabelNode!
     var score = 0 {
@@ -65,6 +64,7 @@ class GameScene: SKScene {
         scoreShower.fontName = "Emulogic"
         scoreShower.fontSize = 20
         scoreShower.position = CGPoint(x: frame.width/2,y: frame.maxY - (2.0*scoreShower.fontSize))
+        scoreShower.zPosition = 1
         addChild(scoreShower)
     }
     override func update(_ currentTime: TimeInterval) {
@@ -248,6 +248,7 @@ class GameScene: SKScene {
         
         //monsterNoPhysics.removeFromParent()
         monstersDestroyed += 1
+        score = monstersDestroyed * 100
         if monstersDestroyed >= 10 {
           let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
             let gameOverScene = GameOverScene(size: self.size, won: true)
