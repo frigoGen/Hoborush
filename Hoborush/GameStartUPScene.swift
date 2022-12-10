@@ -1,32 +1,60 @@
 //
-//  AppStartUP.swift
+//  GameStartUPScene.swift
 //  Hoborush
 //
-//  Created by Ferdinando Carbone on 09/12/22.
+//  Created by Ferdinando Carbone on 10/12/22.
 //
 
 import SpriteKit
 import UIKit
-
-let background1 = SKSpriteNode(imageNamed: "LogoGame1")
-
+public var introAnima: SKAction!
+public var teamAnima: SKAction!
 class GameStartUPScene: SKScene {
-    override init(size: CGSize) {
-        super.init(size: size)
-        
-        background1.position = CGPoint(x: 0.5, y: 0.5)
-        addChild(background1)
-        background1.run(introAnima, completion:{
-            SKAction.wait(forDuration: 1.0)
-            SKAction.run() { [weak self] in
-                guard let `self` = self else { return }
-                let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
-                let gameOverScene = GameOverScene(size: self.size, won: false)
-                self.view?.presentScene(gameOverScene, transition: reveal)
+
+        var Backbone = SKSpriteNode(imageNamed: "Intro1")
+        var creatividad = SKSpriteNode(imageNamed: "LogoGamefix1")
+        override func didMove(to view: SKView) {
+            introAnim()
+            teamAnim()
+            print("Ready")
+            let transition:SKTransition = SKTransition.fade(withDuration: 3.0)
+            let scene:SKScene = MainMenuScene(size: self.size)
+            //label.position = CGPoint(x: 100,y: 33)
+            Backbone.position = CGPoint(x: size.width/2, y: size.height/2)
+            Backbone.size = CGSize(width: size.width, height: size.height)
+            Backbone.zPosition = 0
+            creatividad.zPosition = 2
+            creatividad.position = CGPoint(x: size.width/2, y: size.height/2 )
+            creatividad.size = CGSize(width: size.width/2, height: size.height/2)
+            //addChild(label)
+            addChild(Backbone)
+            addChild(creatividad)
+            Backbone.run(introAnima)
+            creatividad.run(teamAnima,completion: {
+                print("wowwww")
+                //SKAction.wait(forDuration: 200.0)
+                self.view?.presentScene(scene, transition: transition)
+            })
+            //Backbone.removeFromParent()
+            
+            
+            
+            //playButton = SKSpriteNode(texture: playButtonTex)
+            //label.size = CGSize(width: 128,height: 128)
+        }
+        /*override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+            if let touch = touches.first {
+                let pos = touch.location(in: self)
+                let node = self.atPoint(pos)
+
+                if node == playButton {
+                    if let view = view {
+                        let transition:SKTransition = SKTransition.fade(withDuration: 1)
+                        let scene:SKScene = GameScene(size: self.size)
+                        self.view?.presentScene(scene, transition: transition)
+                    }
+                }
             }
-        })
+        }*/
     }
-    required init(coder aDecoder: NSCoder) {
-      fatalError("init(coder:) has not been implemented")
-    }
-}
+

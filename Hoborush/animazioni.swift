@@ -71,5 +71,15 @@ public func introAnim(){
         for i in 1...9 {
             introArr.append(SKTexture(imageNamed: "Intro\(i)"))
         }
-        introAnima = SKAction.animate(with: introArr, timePerFrame: 0.03)
+    introAnima = SKAction.repeatForever(SKAction.animate(with: introArr, timePerFrame: 0.5))
+        
 }
+public func teamAnim(){
+    var teamArr: [SKTexture] = []
+        for i in 1...15 {
+            teamArr.append(SKTexture(imageNamed: "LogoGamefix\(i)"))
+        }
+    teamAnima = SKAction.animate(with: teamArr, timePerFrame: 0.25)
+        
+}
+

@@ -12,7 +12,7 @@ import GameplayKit
 class GameViewController: UIViewController {
 
     override func viewDidLoad() {
-        let scene2 = GameScene(size: view.bounds.size)
+        let scene2 = GameStartUPScene(size: view.bounds.size)
         //let scene1 = GameStartUPScene(size: view.bounds.size)
         let skView = view as! SKView
         skView.showsFPS = true
