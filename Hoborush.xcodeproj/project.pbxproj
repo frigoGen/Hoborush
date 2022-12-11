@@ -60,8 +60,6 @@
 		6EAA9F53293F3E4F00D61127 = {
 			isa = PBXGroup;
 			children = (
-				6E41709B2944AAE300B0FBF9 /* LeaderBoardFunctions.swift */,
-				6E4170992944AA8D00B0FBF9 /* LeaderBoardScene.swift */,
 				6EAA9F5E293F3E4F00D61127 /* Hoborush */,
 				6EAA9F5D293F3E4F00D61127 /* Products */,
 			);
@@ -88,6 +86,8 @@
 				6E1FD3C229429AF3001DC7B6 /* GameOverScene.swift */,
 				6EAA9F61293F3E4F00D61127 /* GameScene.sks */,
 				6EAA9F65293F3E4F00D61127 /* GameScene.swift */,
+				6E41709B2944AAE300B0FBF9 /* LeaderBoardFunctions.swift */,
+				6E4170992944AA8D00B0FBF9 /* LeaderBoardScene.swift */,
 				6E1FD3C8294392EA001DC7B6 /* MainMenu.swift */,
 				6E1FD3CE2943BC2B001DC7B6 /* GameViewController.swift 19-51-58-488.swift */,
 				6EAA9F69293F3E4F00D61127 /* Main.storyboard */,
