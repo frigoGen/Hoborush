@@ -36,7 +36,7 @@ class GameOverScene: SKScene {
             print("amDead")
             updateHighScore(giocatore: giocatore)
             print("HAVEupdated")
-            scene = LeaderBoardScene(size: self.size, pescatore: giocatore)
+            scene = LeaderBoardScene(size: self.size)
         }
         else if(won){
             scene = GameScene(size:size)

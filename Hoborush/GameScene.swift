@@ -248,11 +248,11 @@ class GameScene: SKScene {
         //monsterNoPhysics.removeFromParent()
         monstersDestroyed += 1
         score = monstersDestroyed * 100
-        if monstersDestroyed >= 10 {
+        /*if monstersDestroyed >= 10 {
           let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
             let gameOverScene = GameOverScene(size: self.size, won: true, incredibile: score)
           view?.presentScene(gameOverScene, transition: reveal)
-        }
+        }*/ //DECOMMENTA SE VUOI LA VINCITA DEL GIOCO CON LA CONDIZIONE NELL'IF
 
     }
 }
