@@ -34,6 +34,6 @@ class GameViewController: UIViewController {
             skView.ignoresSiblingOrder = true
             //scene1.scaleMode = .resizeFill
             scene2.scaleMode = .resizeFill
-            skView.presentScene(scene2)
+            skView.presentScene(scene1)
         }
 }

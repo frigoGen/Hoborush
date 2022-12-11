@@ -16,28 +16,32 @@ var testoPazzo = SKLabelNode(fontNamed: "Emulogic")
 class LeaderBoardScene: SKScene {
     init(size: CGSize, pescatore: salvataggio) {
         super.init(size: size)
+        let coloriPazzi = [UIColor.systemYellow,UIColor.systemGray,UIColor.systemBrown]
         backgroundColor = .gray
         let scores = loadScores()
         let personalScore = SKLabelNode(fontNamed: "Emulogic")
-        var scoreHeight = frame.maxY - playButton.size.height/2
+        var scoreHeight = frame.midY
         //playButton = SKSpriteNode(texture: playButtonTex)
-        title.position = CGPoint(x: frame.midX, y: frame.maxY)
+        testoPazzo.text = "High Scores"
+        title.position = CGPoint(x: frame.midX, y: frame.maxY - 50.0)
+        testoPazzo.position = CGPoint(x: title.position.x, y: title.position.y - 1.3*title.size.height)
         playButton.position = CGPoint(x: frame.maxX-playButton.size.width/2, y: frame.minY+playButton.size.height/2)
-        playButton.size = CGSize(width: 40, height: 10)
         MenuButton.position = CGPoint(x: playButton.position.x, y: playButton.position.y + 10 + MenuButton.size.height/2)
-        MenuButton.size = CGSize(width: 40, height: 10)
+        playButton.size = CGSize(width: 80, height: 20)
+        MenuButton.size = CGSize(width: 80, height: 20)
         for index in scores.indices{
-            let rank = "\(index + 1) \(scores[index].nome): \(scores[index].punti)"
+            let rank = "#\(index + 1) \(scores[index].nome): \(scores[index].punti)"
             let scoreNode = SKLabelNode(fontNamed: "Emulogic")
-            scoreNode.text = "High Scores"
-            scoreNode.fontColor = .white
+            scoreNode.text = rank
+            scoreNode.fontColor = coloriPazzi[index]
             scoreNode.position = CGPoint(x: frame.midX, y: scoreHeight)
-            scoreHeight -= scoreNode.fontSize
+            scoreHeight -= scoreNode.fontSize + 25
             addChild(scoreNode)
         }
         self.addChild(playButton)
         self.addChild(MenuButton)
         self.addChild(title)
+        self.addChild(testoPazzo)
         personalScore.text = "\(score)"
         personalScore.fontColor = .yellow
         personalScore.position = CGPoint(x: frame.width/2,y:frame.width/2)
