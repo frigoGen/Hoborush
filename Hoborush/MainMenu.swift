@@ -10,16 +10,18 @@ import SpriteKit
 
 class MainMenuScene: SKScene {
     var playButton = SKSpriteNode(imageNamed: "startGame-export")
+    var leaderButton = SKSpriteNode(imageNamed: "leaderboard")
     //let playButtonTex = SKTexture(imageNamed: "startGame-export")
     var title = SKSpriteNode(imageNamed: "title1")
     
     //var back
      override func didMove(to view: SKView) {
-        //playButton = SKSpriteNode(texture: playButtonTex)
         title.position = CGPoint(x: frame.midX, y: frame.maxY-title.size.height)
         playButton.position = CGPoint(x: frame.midX, y: frame.minY+playButton.size.height/2)
         playButton.size = CGSize(width: 150, height: 40)
+         leaderButton.position = CGPoint(x: playButton.position.x, y: playButton.position.y - leaderButton.size.height/2)
         self.addChild(playButton)
+         self.addChild(leaderButton)
         self.addChild(title)
     }
 
@@ -32,6 +34,13 @@ class MainMenuScene: SKScene {
                 if let view = view {
                     let transition:SKTransition = SKTransition.fade(withDuration: 1)
                     let scene:SKScene = GameScene(size: self.size)
+                    self.view?.presentScene(scene, transition: transition)
+                }
+            }
+            if node == leaderButton {
+                if let view = view {
+                    let transition:SKTransition = SKTransition.fade(withDuration: 1)
+                    let scene:SKScene = LeaderBoardScene(size: self.size)
                     self.view?.presentScene(scene, transition: transition)
                 }
             }

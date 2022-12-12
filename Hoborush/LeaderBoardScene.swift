@@ -9,7 +9,7 @@ import SpriteKit
 
 //public var newScores = [salvataggio]()
 var playButton = SKSpriteNode(imageNamed: "startGame-export")
-var MenuButton = SKSpriteNode(imageNamed: "MainMenu")
+var MenuButton = SKSpriteNode(imageNamed: "backtomenuGiusto")
 var title = SKSpriteNode(imageNamed: "title1")
 var testoPazzo = SKLabelNode(fontNamed: "Emulogic")
 
@@ -17,7 +17,7 @@ class LeaderBoardScene: SKScene {
     override init(size: CGSize) {
         super.init(size: size)
         let coloriPazzi = [UIColor.systemYellow,UIColor.systemGray,UIColor.systemBrown]
-        //backgroundColor = .black
+        backgroundColor = .black
         let scores = loadScores()
         let personalScore = SKLabelNode(fontNamed: "Emulogic")
         var scoreHeight = frame.midY
@@ -37,7 +37,7 @@ class LeaderBoardScene: SKScene {
         playButton.position = CGPoint(x: frame.maxX - 90, y: scoreHeight + 20)
         MenuButton.position = CGPoint(x: frame.midX - 320, y: playButton.position.y)
         playButton.size = CGSize(width: 100, height: 30)
-        MenuButton.size = CGSize(width: 125, height: 20)
+        MenuButton.size = CGSize(width: 80, height: 50)
         self.addChild(playButton)
         self.addChild(MenuButton)
         self.addChild(title)

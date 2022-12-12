@@ -22,12 +22,12 @@ class GameOverScene: SKScene {
     var scene: SKScene!
     // 3
     let gameOverNode = SKSpriteNode(imageNamed: "gameover1")
-    let label = SKLabelNode(fontNamed: "Chalkduster")
+    /*let label = SKLabelNode(fontNamed: "Chalkduster")
     label.text = message
     label.fontSize = 20
     label.fontColor = SKColor.white
         label.position = CGPoint(x: size.width/4, y: size.height - 20)
-    addChild(label)
+    addChild(label)*/
         if(!won){
             let player = SKSpriteNode(imageNamed: "HoboDying1")
             player.size = CGSize(width: 128, height: 128)
