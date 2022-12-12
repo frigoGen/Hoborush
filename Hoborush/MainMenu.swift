@@ -19,7 +19,7 @@ class MainMenuScene: SKScene {
         title.position = CGPoint(x: frame.midX, y: frame.maxY-title.size.height)
         playButton.position = CGPoint(x: frame.midX, y: frame.minY+playButton.size.height/2)
         playButton.size = CGSize(width: 150, height: 40)
-         leaderButton.position = CGPoint(x: playButton.position.x, y: playButton.position.y - leaderButton.size.height/2)
+         leaderButton.position = CGPoint(x: playButton.position.x, y: playButton.position.y - leaderButton.size.height)
         self.addChild(playButton)
          self.addChild(leaderButton)
         self.addChild(title)

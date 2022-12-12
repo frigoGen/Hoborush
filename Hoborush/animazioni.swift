@@ -106,6 +106,6 @@ public func AlienAttAnim(){
         for i in 1...11 {
             AAttArr.append(SKTexture(imageNamed: "alienattack\(i)"))
         }
-    alienAttack = SKAction.animate(with: AAttArr, timePerFrame: 0.1)
+    alienAttack = SKAction.animate(with: AAttArr, timePerFrame: 0.06)
         
 }

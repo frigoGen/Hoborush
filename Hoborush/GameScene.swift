@@ -74,7 +74,14 @@ class GameScene: SKScene {
     }
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
-        //score = monstersDestroyed * 100
+        for node in self.children {
+          // Check if the node is an SKSpriteNode and if it's in the desired position
+            if let spriteNode = node as? SKSpriteNode, spriteNode.position == CGPoint(x:player.position.x + 100,y:player.position.y) {
+            // Set the texture of the node to the new texture
+                spriteNode.removeAction(forKey: "alienWalk")
+            spriteNode.run(alienAttack, withKey: "alienattack")
+          }
+        }
         
     }
     /*func alienDie(monster: SKNode){
@@ -180,7 +187,7 @@ class GameScene: SKScene {
         }
     }
     func addMonster() {
-        let actionMoveDone: SKAction
+        
         let whack = random(min: 0.0, max: 1.0)
         var num:CGFloat
         // Create sprite
@@ -225,9 +232,15 @@ class GameScene: SKScene {
         if(monster.position.x < size.width){
             alienDir = +1
         }
-        let actionMove = SKAction.move(to: CGPoint(x: size.width/2 - CGFloat(alienDir)*15 , y: actualY),
+        let actionMove = SKAction.move(to: CGPoint(x:player.position.x - CGFloat(alienDir*10) ,y: actualY),
                                        duration: TimeInterval(actualDuration))
-        actionMoveDone = SKAction.removeFromParent()
+        let actionAttack = SKAction.move(to: CGPoint(x:player.position.x ,y: actualY),
+                                         duration: TimeInterval(actualDuration))
+        let actionMoveDone: SKAction = SKAction.removeFromParent()
+        /*if ((monster.position.x < player.position.x + 150 && monster.position.x > size.width/2) || (monster.position.x > player.position.x - 150 && monster.position.x < size.width/2 )){
+                          monster.removeAction(forKey: "alienWalk")
+                          monster.run(alienAttack,withKey: "alienattack")
+                      }*/
         let loseAction = SKAction.run() { [weak self] in
           guard let `self` = self else { return }
             let reveal = SKTransition.fade(withDuration: 0.5)
@@ -242,9 +255,9 @@ class GameScene: SKScene {
         //wasHit = true
         //let actionMove = SKAction.
         //monster.run(actionMove)
+        monster.physicsBody = nil
         monster.removeAction(forKey: "alienattack")
         //monsterNoPhysics.position = monster.position
-        monster.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 0, height: 0))
         /*monster.run(SKAction.move(to: CGPoint(x: monsterNoPhysics.position.x, y: monsterNoPhysics.position.y),
                                   duration: TimeInterval(0.0)))*/
         //addChild(monsterNoPhysics)
@@ -283,10 +296,6 @@ extension GameScene: SKPhysicsContactDelegate {
           (secondBody.categoryBitMask & PhysicsCategory.player != 0)) {
         if let monster = firstBody.node as? SKSpriteNode,
           let player = secondBody.node as? SKSpriteNode {
-            if ((monster.position.x < player.position.x + size.width/8 && monster.position.x > size.width/2) || (monster.position.x > player.position.x - size.width/8 && monster.position.x < size.width/2 )){
-                monster.removeAction(forKey: "alienWalk")
-                monster.run(alienAttack,withKey: "alienattack")
-            }
             if((touchRight == true && monster.position.x > size.width/2) || (touchLeft == true && monster.position.x<size.width/2)){
                 baseballBatDidCollideWithMonster(player: player, monster: monster)
                 if(touchLeft){touchLeft = false}

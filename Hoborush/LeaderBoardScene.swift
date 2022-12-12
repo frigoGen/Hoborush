@@ -37,7 +37,7 @@ class LeaderBoardScene: SKScene {
         playButton.position = CGPoint(x: frame.maxX - 90, y: scoreHeight + 20)
         MenuButton.position = CGPoint(x: frame.midX - 320, y: playButton.position.y)
         playButton.size = CGSize(width: 100, height: 30)
-        MenuButton.size = CGSize(width: 80, height: 50)
+        MenuButton.size = CGSize(width: 80, height: 45)
         self.addChild(playButton)
         self.addChild(MenuButton)
         self.addChild(title)
