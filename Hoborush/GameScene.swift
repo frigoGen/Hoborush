@@ -120,11 +120,11 @@ class GameScene: SKScene {
         }
     player.removeAction(forKey: "animate")
     player.size = CGSize(width: 254, height: 182)
-    player.position = CGPoint(x: self.size.width/2, y: self.size.height/2 + 30)
+    player.position = CGPoint(x: self.size.width/2, y: 100 + 30)
         if(wasHit == false){
             wasHit = true
             player.run(attAnimation,completion:{
-            self.player.position = CGPoint(x: self.size.width/2, y: self.size.height/2)
+            self.player.position = CGPoint(x: self.size.width/2, y: 100)
             self.player.size = CGSize(width: 128, height: 128)
             self.player.run(idleanimation,withKey: "animate")
             self.wasHit = false
@@ -149,7 +149,7 @@ class GameScene: SKScene {
     func Idle(){
         player.zPosition = 2
         player.size = CGSize(width: 128, height: 128)
-        player.position = CGPoint(x: size.width/2, y: size.height/2)
+        player.position = CGPoint(x: size.width/2, y: 100)
         player.run(idleanimation, withKey: "animate")
         addChild(player)
         physicsWorld.gravity = .zero
@@ -194,7 +194,7 @@ class GameScene: SKScene {
         let monster = SKSpriteNode(imageNamed: "AlienWalking1")
         monster.size = CGSize(width: 128.0, height: 128.0)
         // Determine where to spawn the monster along the Y axis
-        let actualY = size.height/2 //random(min: monster.size.height/2, max: size.height - monster.size.height/2)
+        let actualY = 100 //random(min: monster.size.height/2, max: size.height - monster.size.height/2)
         if(whack<0.5){
             num = 0
         }
@@ -204,7 +204,7 @@ class GameScene: SKScene {
         // Position the monster slightly off-screen along the right edge,
         // and along a random position along the Y axis as calculated above
         monster.zPosition = 2
-        monster.position = CGPoint(x: num*(size.width), y: actualY)
+        monster.position = CGPoint(x: num*(size.width), y: 100)
         monster.run(alienWalkingAnimation,withKey: "alienWalk")
         if(!(monster.position.x > 0)){
             monster.xScale = monster.xScale * -1
@@ -232,9 +232,9 @@ class GameScene: SKScene {
         if(monster.position.x < size.width){
             alienDir = +1
         }
-        let actionMove = SKAction.move(to: CGPoint(x:player.position.x - CGFloat(alienDir*10) ,y: actualY),
+        let actionMove = SKAction.move(to: CGPoint(x:player.position.x - CGFloat(alienDir*10) ,y: 100),
                                        duration: TimeInterval(actualDuration))
-        let actionAttack = SKAction.move(to: CGPoint(x:player.position.x ,y: actualY),
+        let actionAttack = SKAction.move(to: CGPoint(x:player.position.x ,y: 100),
                                          duration: TimeInterval(actualDuration))
         let actionMoveDone: SKAction = SKAction.removeFromParent()
         /*if ((monster.position.x < player.position.x + 150 && monster.position.x > size.width/2) || (monster.position.x > player.position.x - 150 && monster.position.x < size.width/2 )){
