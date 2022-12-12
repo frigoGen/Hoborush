@@ -8,15 +8,7 @@
 import SpriteKit
 import GameplayKit
 
-public var deathAnimation : SKAction!
-public var attAnimation: SKAction!
-public var idleanimation: SKAction!
-public var alienWalkingAnimation: SKAction!
-public var alienDAnimation1 : SKAction!
-public var alienDAnimation2 : SKAction!
-public var alienDAnimation3 : SKAction!
-public var alienDAnimation : [SKAction] = [alienDAnimation1,alienDAnimation2,alienDAnimation3]
-       var scoreShower: SKLabelNode!
+var scoreShower: SKLabelNode!
 public var score = 0 {
     didSet {
     scoreShower.text = "\(score)"
@@ -37,19 +29,25 @@ class GameScene: SKScene {
     var monstersDestroyed = 0
     var player = SKSpriteNode(imageNamed: "HoboIdle1")
     var background = SKSpriteNode(imageNamed: "back")
-    
+    let backgroundSound = SKAudioNode(fileNamed: "backgroundMusic.mp3")
+        
     override func didMove(to view: SKView) {
         
         background.position = CGPoint(x: size.width, y: size.height)
         background.zPosition = 0
         addChild(background)
         //monsterNoPhysics.size = CGSize(width: 128.0, height: 128.0)
+        GOAnim()
+        AlienAttAnim()
         AlienWalkAn()
         deathAn()
         HoboAttack()
         AlienSmarmell()
         idleAnimation()
         Idle()
+        backgroundSound.autoplayLooped = true
+        backgroundSound.run(SKAction.changeVolume(to: 15, duration: 0))
+        addChild(backgroundSound)
         run(SKAction.repeatForever(
             SKAction.sequence([
                 SKAction.run(addMonster),
@@ -141,7 +139,7 @@ class GameScene: SKScene {
         addChild(player)
         physicsWorld.gravity = .zero
         physicsWorld.contactDelegate = self
-        player.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 0.80*player.size.width, height: player.size.height))
+        player.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 0.87*player.size.width, height: player.size.height))
         player.physicsBody?.isDynamic = true
         player.physicsBody?.categoryBitMask = PhysicsCategory.player
         player.physicsBody?.contactTestBitMask = PhysicsCategory.monster
@@ -214,18 +212,21 @@ class GameScene: SKScene {
             
         }*/
         let actualDuration = random(min: CGFloat(2.0), max: CGFloat(4.0))
-        
         // Create the actions
-        let actionMove = SKAction.move(to: CGPoint(x: size.width/2, y: actualY),
+        var alienDir = -1
+        if(monster.position.x < size.width){
+            alienDir = +1
+        }
+        let actionMove = SKAction.move(to: CGPoint(x: size.width/2 - CGFloat(alienDir)*15 , y: actualY),
                                        duration: TimeInterval(actualDuration))
-            actionMoveDone = SKAction.removeFromParent()
+        actionMoveDone = SKAction.removeFromParent()
         let loseAction = SKAction.run() { [weak self] in
           guard let `self` = self else { return }
             let reveal = SKTransition.fade(withDuration: 0.5)
             let gameOverScene = GameOverScene(size: self.size, won: false, incredibile: score)
           self.view?.presentScene(gameOverScene, transition: reveal)
         }
-        monster.run(SKAction.sequence([actionMove,loseAction,actionMoveDone]))
+        monster.run(SKAction.sequence([actionMove,loseAction,SKAction.wait(forDuration: 20),actionMoveDone]))
 
     }
     func baseballBatDidCollideWithMonster(player: SKSpriteNode, monster: SKSpriteNode) {
@@ -233,9 +234,9 @@ class GameScene: SKScene {
         //wasHit = true
         //let actionMove = SKAction.
         //monster.run(actionMove)
-        monster.removeAction(forKey: "alienWalk")
+        monster.removeAction(forKey: "alienattack")
         //monsterNoPhysics.position = monster.position
-        
+        monster.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 0, height: 0))
         /*monster.run(SKAction.move(to: CGPoint(x: monsterNoPhysics.position.x, y: monsterNoPhysics.position.y),
                                   duration: TimeInterval(0.0)))*/
         //addChild(monsterNoPhysics)
@@ -274,6 +275,10 @@ extension GameScene: SKPhysicsContactDelegate {
           (secondBody.categoryBitMask & PhysicsCategory.player != 0)) {
         if let monster = firstBody.node as? SKSpriteNode,
           let player = secondBody.node as? SKSpriteNode {
+            if ((monster.position.x < player.position.x + size.width/2 && monster.position.x > size.width/2) || (monster.position.x > player.position.x - size.width/2 && monster.position.x < size.width/2 )){
+                monster.removeAction(forKey: "alienWalk")
+                monster.run(alienAttack,withKey: "alienattack")
+            }
             if((touchRight == true && monster.position.x > size.width/2) || (touchLeft == true && monster.position.x<size.width/2)){
                 baseballBatDidCollideWithMonster(player: player, monster: monster)
                 if(touchLeft){touchLeft = false}

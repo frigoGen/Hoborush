@@ -7,6 +7,17 @@
 
 import SpriteKit
 
+public var deathAnimation : SKAction!
+public var attAnimation: SKAction!
+public var idleanimation: SKAction!
+public var alienWalkingAnimation: SKAction!
+public var alienDAnimation1 : SKAction!
+public var alienDAnimation2 : SKAction!
+public var alienDAnimation3 : SKAction!
+public var alienDAnimation : [SKAction] = [alienDAnimation1,alienDAnimation2,alienDAnimation3]
+public var gameOverAnim : SKAction!
+public var alienAttack : SKAction!
+
 public func deathAn()
 {
     var deadArr: [SKTexture] = []
@@ -82,4 +93,19 @@ public func teamAnim(){
     teamAnima = SKAction.animate(with: teamArr, timePerFrame: 0.45)
         
 }
-
+public func GOAnim(){
+    var goArr: [SKTexture] = []
+        for i in 1...3 {
+            goArr.append(SKTexture(imageNamed: "gameover\(i)"))
+        }
+    gameOverAnim = SKAction.repeatForever(SKAction.animate(with: goArr, timePerFrame: 0.45))
+        
+}
+public func AlienAttAnim(){
+    var AAttArr: [SKTexture] = []
+        for i in 1...11 {
+            AAttArr.append(SKTexture(imageNamed: "alienattack\(i)"))
+        }
+    alienAttack = SKAction.animate(with: AAttArr, timePerFrame: 0.05)
+        
+}

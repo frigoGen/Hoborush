@@ -14,13 +14,14 @@ class GameOverScene: SKScene {
     init(size: CGSize, won:Bool, incredibile: Int) {
     super.init(size: size)
         
-    backgroundColor = SKColor.blue
+    backgroundColor = SKColor.black
     
     // 2
     var giocatore = salvataggio(nome: "ABC",punti: incredibile)
     let message = won ? "You Won!" : "You Lose :["
     var scene: SKScene!
     // 3
+    let gameOverNode = SKSpriteNode(imageNamed: "gameover1")
     let label = SKLabelNode(fontNamed: "Chalkduster")
     label.text = message
     label.fontSize = 20
@@ -31,8 +32,14 @@ class GameOverScene: SKScene {
             let player = SKSpriteNode(imageNamed: "HoboDying1")
             player.size = CGSize(width: 128, height: 128)
             player.position = CGPoint(x: size.width/2, y: size.height/2)
+            gameOverNode.position = CGPoint(x: player.position.x, y: player.position.y - 10)
+            gameOverNode.size = CGSize(width: frame.width/2 + 320, height: frame.height/2 - 40)
             addChild(player)
-            player.run(deathAnimation, withKey: "die")
+            addChild(gameOverNode)
+            gameOverNode.run(gameOverAnim, withKey: "gameover")
+            player.run(deathAnimation, completion: {
+                SKAction.wait(forDuration: 8.0)
+            })
             print("amDead")
             updateHighScore(giocatore: giocatore)
             print("HAVEupdated")
