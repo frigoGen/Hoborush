@@ -7,7 +7,9 @@
 
 import SpriteKit
 import GameplayKit
+import AVFoundation
 
+let backgroundSound = JKAudioPlayer.sharedInstance()
 var scoreShower: SKLabelNode!
 public var score = 0 {
     didSet {
@@ -29,8 +31,7 @@ class GameScene: SKScene {
     var monstersDestroyed = 0
     var player = SKSpriteNode(imageNamed: "HoboIdle1")
     var background = SKSpriteNode(imageNamed: "back")
-    let backgroundSound = SKAudioNode(fileNamed: "backgroundMusic.mp3")
-        
+    
     override func didMove(to view: SKView) {
         
         background.position = CGPoint(x: size.width, y: size.height)
@@ -45,9 +46,7 @@ class GameScene: SKScene {
         AlienSmarmell()
         idleAnimation()
         Idle()
-        backgroundSound.autoplayLooped = true
-        backgroundSound.run(SKAction.changeVolume(to: 15, duration: 0))
-        addChild(backgroundSound)
+        backgroundSound.playMusic(fileName: "backgroundMusic.mp3")
         run(SKAction.repeatForever(
             SKAction.sequence([
                 SKAction.run(addMonster),
