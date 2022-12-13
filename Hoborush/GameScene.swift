@@ -32,6 +32,9 @@ class GameScene: SKScene {
     var player = SKSpriteNode(imageNamed: "HoboIdle1")
     var background = SKSpriteNode(imageNamed: "Background")
     var backM = SKAudioNode(fileNamed:"backgroundMusic")
+    /*var hoboHit = SKAudioNode(fileNamed:"hoboScream1")
+    var hoboHit1 = SKAudioNode(fileNamed:"hoboScream2")
+    var hitPazzo = SKAudioNode(fileNamed:"crit")*/
     var lightNode = SKSpriteNode(imageNamed: "Lights1")
     var lvlLab = SKLabelNode(fontNamed: "Emulogic")
     var lvlSel : Int = 1
@@ -71,14 +74,18 @@ class GameScene: SKScene {
                     SKAction.sequence([
                         SKAction.run(self.addMonster),
                         SKAction.run{ [self] in if (self.precLvl < self.lvlSel){
-                            self.lvlLab.text = "nWave \(self.lvlSel)"
+                            self.lvlLab.text = "Wave \(self.lvlSel)"
                             self.precLvl+=1
                             addChild(lvlLab)
                             self.lightNode.run(openingGame, completion: {
                                 self.mike = self.mike*CGFloat(0.75)
+                                print("x")
                                 SKAction.wait(forDuration: 3.0)
-                                    self.lvlLab.removeFromParent()
+                                self.lvlLab.removeFromParent()
+                                
+                               /* self.run(rimuovi, completion: {
                                     SKAction.wait(forDuration: 10)
+                                    print("z")})*/
                                 
                             })
                         }},
@@ -131,6 +138,7 @@ class GameScene: SKScene {
     })
     }*/
     func Attack(){
+        run(SKAction.playSoundFileNamed("crit", waitForCompletion: false))
         if(touchRight){
             turn = false
             if(!(player.xScale > 0)){
@@ -278,6 +286,7 @@ class GameScene: SKScene {
     }
     func baseballBatDidCollideWithMonster(player: SKSpriteNode, monster: SKSpriteNode) {
       print("Hit")
+        run(SKAction.playSoundFileNamed("deathAlien", waitForCompletion: false))
         //wasHit = true
         //let actionMove = SKAction.
         //monster.run(actionMove)

@@ -17,6 +17,17 @@
 		6E41709A2944AA8D00B0FBF9 /* LeaderBoardScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4170992944AA8D00B0FBF9 /* LeaderBoardScene.swift */; };
 		6E41709C2944AAE300B0FBF9 /* LeaderBoardFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E41709B2944AAE300B0FBF9 /* LeaderBoardFunctions.swift */; };
 		6E4170A2294734AE00B0FBF9 /* backgroundMusic.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6E4170A1294734AE00B0FBF9 /* backgroundMusic.mp3 */; };
+		6E4170B52948671300B0FBF9 /* deathAlien.wav in Resources */ = {isa = PBXBuildFile; fileRef = 6E4170A62948671300B0FBF9 /* deathAlien.wav */; };
+		6E4170B62948671300B0FBF9 /* suonoStartGame1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 6E4170A82948671300B0FBF9 /* suonoStartGame1.wav */; };
+		6E4170B72948671300B0FBF9 /* suonoBackToMenu.wav in Resources */ = {isa = PBXBuildFile; fileRef = 6E4170A92948671300B0FBF9 /* suonoBackToMenu.wav */; };
+		6E4170B82948671300B0FBF9 /* suonoLeaderboard.wav in Resources */ = {isa = PBXBuildFile; fileRef = 6E4170AA2948671300B0FBF9 /* suonoLeaderboard.wav */; };
+		6E4170B92948671300B0FBF9 /* suonoStartGame.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6E4170AB2948671300B0FBF9 /* suonoStartGame.mp3 */; };
+		6E4170BA2948671300B0FBF9 /* suonoStartGame(riverbero).wav in Resources */ = {isa = PBXBuildFile; fileRef = 6E4170AC2948671300B0FBF9 /* suonoStartGame(riverbero).wav */; };
+		6E4170BB2948671300B0FBF9 /* crittato.mp3.flac in Resources */ = {isa = PBXBuildFile; fileRef = 6E4170AF2948671300B0FBF9 /* crittato.mp3.flac */; };
+		6E4170BD2948671300B0FBF9 /* hit.wav in Resources */ = {isa = PBXBuildFile; fileRef = 6E4170B12948671300B0FBF9 /* hit.wav */; };
+		6E4170C32948686B00B0FBF9 /* crit.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6E4170C02948686B00B0FBF9 /* crit.mp3 */; };
+		6E4170C42948686B00B0FBF9 /* hoboScream1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6E4170C12948686B00B0FBF9 /* hoboScream1.mp3 */; };
+		6E4170C52948686B00B0FBF9 /* hoboScream2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6E4170C22948686B00B0FBF9 /* hoboScream2.mp3 */; };
 		6EAA9F60293F3E4F00D61127 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EAA9F5F293F3E4F00D61127 /* AppDelegate.swift */; };
 		6EAA9F62293F3E4F00D61127 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 6EAA9F61293F3E4F00D61127 /* GameScene.sks */; };
 		6EAA9F64293F3E4F00D61127 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 6EAA9F63293F3E4F00D61127 /* Actions.sks */; };
@@ -38,6 +49,17 @@
 		6E4170992944AA8D00B0FBF9 /* LeaderBoardScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderBoardScene.swift; sourceTree = "<group>"; };
 		6E41709B2944AAE300B0FBF9 /* LeaderBoardFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderBoardFunctions.swift; sourceTree = "<group>"; };
 		6E4170A1294734AE00B0FBF9 /* backgroundMusic.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = backgroundMusic.mp3; sourceTree = "<group>"; };
+		6E4170A62948671300B0FBF9 /* deathAlien.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = deathAlien.wav; sourceTree = "<group>"; };
+		6E4170A82948671300B0FBF9 /* suonoStartGame1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = suonoStartGame1.wav; sourceTree = "<group>"; };
+		6E4170A92948671300B0FBF9 /* suonoBackToMenu.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = suonoBackToMenu.wav; sourceTree = "<group>"; };
+		6E4170AA2948671300B0FBF9 /* suonoLeaderboard.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = suonoLeaderboard.wav; sourceTree = "<group>"; };
+		6E4170AB2948671300B0FBF9 /* suonoStartGame.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = suonoStartGame.mp3; sourceTree = "<group>"; };
+		6E4170AC2948671300B0FBF9 /* suonoStartGame(riverbero).wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "suonoStartGame(riverbero).wav"; sourceTree = "<group>"; };
+		6E4170AF2948671300B0FBF9 /* crittato.mp3.flac */ = {isa = PBXFileReference; lastKnownFileType = file; path = crittato.mp3.flac; sourceTree = "<group>"; };
+		6E4170B12948671300B0FBF9 /* hit.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = hit.wav; sourceTree = "<group>"; };
+		6E4170C02948686B00B0FBF9 /* crit.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = crit.mp3; sourceTree = "<group>"; };
+		6E4170C12948686B00B0FBF9 /* hoboScream1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = hoboScream1.mp3; sourceTree = "<group>"; };
+		6E4170C22948686B00B0FBF9 /* hoboScream2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = hoboScream2.mp3; sourceTree = "<group>"; };
 		6EAA9F5C293F3E4F00D61127 /* Hoborush.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hoborush.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6EAA9F5F293F3E4F00D61127 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6EAA9F61293F3E4F00D61127 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -59,6 +81,65 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6E4170A32948671300B0FBF9 /* suoni da utilizzare */ = {
+			isa = PBXGroup;
+			children = (
+				6E4170A1294734AE00B0FBF9 /* backgroundMusic.mp3 */,
+				6E4170A42948671300B0FBF9 /* SuoniAlieni */,
+				6E4170A72948671300B0FBF9 /* Suoni menu */,
+				6E4170AD2948671300B0FBF9 /* SuoniHobo */,
+			);
+			path = "suoni da utilizzare";
+			sourceTree = "<group>";
+		};
+		6E4170A42948671300B0FBF9 /* SuoniAlieni */ = {
+			isa = PBXGroup;
+			children = (
+				6E4170A52948671300B0FBF9 /* Death */,
+			);
+			path = SuoniAlieni;
+			sourceTree = "<group>";
+		};
+		6E4170A52948671300B0FBF9 /* Death */ = {
+			isa = PBXGroup;
+			children = (
+				6E4170A62948671300B0FBF9 /* deathAlien.wav */,
+			);
+			path = Death;
+			sourceTree = "<group>";
+		};
+		6E4170A72948671300B0FBF9 /* Suoni menu */ = {
+			isa = PBXGroup;
+			children = (
+				6E4170A82948671300B0FBF9 /* suonoStartGame1.wav */,
+				6E4170A92948671300B0FBF9 /* suonoBackToMenu.wav */,
+				6E4170AA2948671300B0FBF9 /* suonoLeaderboard.wav */,
+				6E4170AB2948671300B0FBF9 /* suonoStartGame.mp3 */,
+				6E4170AC2948671300B0FBF9 /* suonoStartGame(riverbero).wav */,
+			);
+			path = "Suoni menu";
+			sourceTree = "<group>";
+		};
+		6E4170AD2948671300B0FBF9 /* SuoniHobo */ = {
+			isa = PBXGroup;
+			children = (
+				6E4170AE2948671300B0FBF9 /* Hit */,
+			);
+			path = SuoniHobo;
+			sourceTree = "<group>";
+		};
+		6E4170AE2948671300B0FBF9 /* Hit */ = {
+			isa = PBXGroup;
+			children = (
+				6E4170C02948686B00B0FBF9 /* crit.mp3 */,
+				6E4170C12948686B00B0FBF9 /* hoboScream1.mp3 */,
+				6E4170C22948686B00B0FBF9 /* hoboScream2.mp3 */,
+				6E4170AF2948671300B0FBF9 /* crittato.mp3.flac */,
+				6E4170B12948671300B0FBF9 /* hit.wav */,
+			);
+			path = Hit;
+			sourceTree = "<group>";
+		};
 		6EAA9F53293F3E4F00D61127 = {
 			isa = PBXGroup;
 			children = (
@@ -80,7 +161,7 @@
 			children = (
 				6E1FD3D6294443CC001DC7B6 /* Info.plist */,
 				6E1FD3D42944435A001DC7B6 /* Emulogic.ttf */,
-				6E4170A1294734AE00B0FBF9 /* backgroundMusic.mp3 */,
+				6E4170A32948671300B0FBF9 /* suoni da utilizzare */,
 				6EAA9F5F293F3E4F00D61127 /* AppDelegate.swift */,
 				6EAA9F63293F3E4F00D61127 /* Actions.sks */,
 				6E1FD3D029441CCB001DC7B6 /* GameStartUPScene.swift */,
@@ -158,14 +239,25 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6E4170BA2948671300B0FBF9 /* suonoStartGame(riverbero).wav in Resources */,
+				6E4170B72948671300B0FBF9 /* suonoBackToMenu.wav in Resources */,
+				6E4170B82948671300B0FBF9 /* suonoLeaderboard.wav in Resources */,
+				6E4170C52948686B00B0FBF9 /* hoboScream2.mp3 in Resources */,
+				6E4170B62948671300B0FBF9 /* suonoStartGame1.wav in Resources */,
+				6E4170C32948686B00B0FBF9 /* crit.mp3 in Resources */,
+				6E4170B92948671300B0FBF9 /* suonoStartGame.mp3 in Resources */,
 				6E1FD3D329441CF5001DC7B6 /* GameStartUPScene.sks in Resources */,
 				6EAA9F6B293F3E4F00D61127 /* Main.storyboard in Resources */,
 				6E4170A2294734AE00B0FBF9 /* backgroundMusic.mp3 in Resources */,
+				6E4170C42948686B00B0FBF9 /* hoboScream1.mp3 in Resources */,
 				6EAA9F62293F3E4F00D61127 /* GameScene.sks in Resources */,
 				6EAA9F6D293F3E5000D61127 /* Assets.xcassets in Resources */,
+				6E4170BD2948671300B0FBF9 /* hit.wav in Resources */,
+				6E4170BB2948671300B0FBF9 /* crittato.mp3.flac in Resources */,
 				6E1FD3D52944435A001DC7B6 /* Emulogic.ttf in Resources */,
 				6EAA9F70293F3E5000D61127 /* LaunchScreen.storyboard in Resources */,
 				6EAA9F64293F3E4F00D61127 /* Actions.sks in Resources */,
+				6E4170B52948671300B0FBF9 /* deathAlien.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
