@@ -26,7 +26,7 @@ class GameViewController: UIViewController {
     }
     override func viewDidLoad() {
             authenticateLocalPlayer()
-           // let scene2 = GameScene(size: view.bounds.size)
+            let scene2 = GameScene(size: view.bounds.size)
             let scene1 = GameStartUPScene(size: view.bounds.size)
           //  let scene3 = LeaderBoardScene(size: view.bounds.size)
         //let scene4 = GameOverScene(size: view.bounds.size, won: false, incredibile: 30)
@@ -36,6 +36,6 @@ class GameViewController: UIViewController {
             skView.ignoresSiblingOrder = true
             //scene1.scaleMode = .resizeFill
             scene1.scaleMode = .resizeFill
-            skView.presentScene(scene1)
+            skView.presentScene(scene2)
         }
 }

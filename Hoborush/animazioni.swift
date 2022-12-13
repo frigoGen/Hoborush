@@ -18,6 +18,7 @@ public var alienDAnimation : [SKAction] = [alienDAnimation1,alienDAnimation2,ali
 public var gameOverAnim : SKAction!
 public var alienAttack : SKAction!
 public var openingGame: SKAction!
+public var binAnim: SKAction!
 
 public func deathAn()
 {
@@ -116,4 +117,11 @@ public func gameStart() {
         gameOp.append(SKTexture(imageNamed: "Lights\(i)"))
     }
     openingGame = SKAction.animate(with: gameOp, timePerFrame: 0.08)
+}
+public func binBuild() {
+    var gameOp: [SKTexture] = []
+    for i in 1...6 {
+        gameOp.append(SKTexture(imageNamed: "firebin\(i)"))
+    }
+    binAnim = SKAction.repeatForever(SKAction.animate(with: gameOp, timePerFrame: 0.15))
 }

@@ -35,6 +35,7 @@ class GameScene: SKScene {
     /*var hoboHit = SKAudioNode(fileNamed:"hoboScream1")
     var hoboHit1 = SKAudioNode(fileNamed:"hoboScream2")
     var hitPazzo = SKAudioNode(fileNamed:"crit")*/
+    var bin = SKSpriteNode(imageNamed: "firebin1")
     var lightNode = SKSpriteNode(imageNamed: "Lights1")
     var lvlLab = SKLabelNode(fontNamed: "Emulogic")
     var lvlSel : Int = 1
@@ -49,6 +50,7 @@ class GameScene: SKScene {
         lightNode.size = frame.size
         lightNode.zPosition = 3
         lightNode.position = CGPoint(x: frame.midX, y: frame.midY)
+        binBuild()
         GOAnim()
         gameStart()
         AlienAttAnim()
@@ -98,12 +100,17 @@ class GameScene: SKScene {
         //HoboAttack()
         //SKAction.removeFromParent()
         //let actionMove = SKAction.run(HoboAttack)
+        bin.size = CGSize(width: 128, height: 128)
+        bin.zPosition = 1
+        bin.position = CGPoint(x: frame.minX + 50, y: player.position.y + 10)
         scoreShower = SKLabelNode(text: "\(score)")
         scoreShower.fontColor = .green
         scoreShower.fontName = "Emulogic"
         scoreShower.fontSize = 20
         scoreShower.position = CGPoint(x: frame.width/2,y: frame.maxY - (1.3*scoreShower.fontSize))
         scoreShower.zPosition = 1
+        bin.run(binAnim)
+        addChild(bin)
         addChild(scoreShower)
     }
     override func update(_ currentTime: TimeInterval) {
