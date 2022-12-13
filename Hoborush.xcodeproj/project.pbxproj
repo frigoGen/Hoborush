@@ -423,7 +423,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 32HCCGTS8W;
+				DEVELOPMENT_TEAM = 8Q2GQ7758S;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Hoborush/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = HoboRush;
@@ -441,7 +441,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = niko;
+				PRODUCT_BUNDLE_IDENTIFIER = ferdy.ada.com;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -459,7 +459,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 32HCCGTS8W;
+				DEVELOPMENT_TEAM = 8Q2GQ7758S;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Hoborush/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = HoboRush;
@@ -477,7 +477,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = niko;
+				PRODUCT_BUNDLE_IDENTIFIER = ferdy.ada.com;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
