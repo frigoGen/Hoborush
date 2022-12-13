@@ -7,7 +7,7 @@
 
 import SpriteKit
 import GameplayKit
-import AVFoundation
+import UIKit
 
 //let backgroundSound = JKAudioPlayer.sharedInstance()
 var scoreShower: SKLabelNode!
@@ -30,19 +30,24 @@ class GameScene: SKScene {
     var wasHit: Bool = false
     var monstersDestroyed = 0
     var player = SKSpriteNode(imageNamed: "HoboIdle1")
-    var background = SKSpriteNode(imageNamed: "back")
+    var background = SKSpriteNode(imageNamed: "Background")
     var backM = SKAudioNode(fileNamed:"backgroundMusic")
-    
+    var lightNode = SKSpriteNode(imageNamed: "Lights1")
+    var lvlLab = SKLabelNode(fontNamed: "Emulogic")
+    var lvlSel : Int = 1
+    var precLvl: Int = 1
+    var mike : CGFloat = 1.0
     override func didMove(to view: SKView) {
         
-        background.position = CGPoint(x: size.width, y: size.height)
+        background.position = CGPoint(x: size.width/2, y: size.height/2)
+        background.size = frame.size
         background.zPosition = 0
         addChild(background)
-        //addChild(backM)
-        //let backM = SKAction.playSoundFileNamed("backgroundMusic", waitForCompletion: false)
-       // self.run(backM)
-        //monsterNoPhysics.size = CGSize(width: 128.0, height: 128.0)
+        lightNode.size = frame.size
+        lightNode.zPosition = 3
+        lightNode.position = CGPoint(x: frame.midX, y: frame.midY)
         GOAnim()
+        gameStart()
         AlienAttAnim()
         AlienWalkAn()
         deathAn()
@@ -51,37 +56,58 @@ class GameScene: SKScene {
         idleAnimation()
         Idle()
         addChild(backM)
+        addChild(lightNode)
         backM.autoplayLooped = true
         backM.run(SKAction.play())
+        lvlLab.fontSize = 30
+        lvlLab.fontColor = .white
+        lvlLab.zPosition = 5
+        lvlLab.position = CGPoint(x: frame.midX, y: frame.midY)
         //playSound(sound: "backgroundMusic", type: "mp3")
-        
         //backgroundSound.playMusic(fileName: "backgroundMusic.mp3")
-        run(SKAction.repeatForever(
-            SKAction.sequence([
-                SKAction.run(addMonster),
-                SKAction.wait(forDuration: 1.0)
-            ])
-        ))
+        lightNode.run(openingGame,completion: {
+            SKAction.wait(forDuration: 5.0)
+            self.run(SKAction.repeatForever(
+                    SKAction.sequence([
+                        SKAction.run(self.addMonster),
+                        SKAction.run{ [self] in if (self.precLvl < self.lvlSel){
+                            self.lvlLab.text = "nWave \(self.lvlSel)"
+                            self.precLvl+=1
+                            addChild(lvlLab)
+                            self.lightNode.run(openingGame, completion: {
+                                self.mike = self.mike*CGFloat(0.75)
+                                SKAction.wait(forDuration: 3.0)
+                                    self.lvlLab.removeFromParent()
+                                    SKAction.wait(forDuration: 10)
+                                
+                            })
+                        }},
+                        SKAction.wait(forDuration: self.mike)
+                    ])
+                ))
+        })
+        
+            
         //HoboAttack()
         //SKAction.removeFromParent()
         //let actionMove = SKAction.run(HoboAttack)
         scoreShower = SKLabelNode(text: "\(score)")
+        scoreShower.fontColor = .green
         scoreShower.fontName = "Emulogic"
         scoreShower.fontSize = 20
-        scoreShower.position = CGPoint(x: frame.width/2,y: frame.maxY - (2.0*scoreShower.fontSize))
+        scoreShower.position = CGPoint(x: frame.width/2,y: frame.maxY - (1.3*scoreShower.fontSize))
         scoreShower.zPosition = 1
         addChild(scoreShower)
     }
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
-        for node in self.children {
+       /*for node in self.children {
           // Check if the node is an SKSpriteNode and if it's in the desired position
-            if let spriteNode = node as? SKSpriteNode, spriteNode.position == CGPoint(x:player.position.x + 100,y:player.position.y) {
+            if let spriteNode = node as? SKSpriteNode, spriteNode.position == CGPoint(x:player.position.x + 50,y:player.position.y) {
             // Set the texture of the node to the new texture
-                spriteNode.removeAction(forKey: "alienWalk")
-            spriteNode.run(alienAttack, withKey: "alienattack")
+                
           }
-        }
+        }*/
         
     }
     /*func alienDie(monster: SKNode){
@@ -120,11 +146,11 @@ class GameScene: SKScene {
         }
     player.removeAction(forKey: "animate")
     player.size = CGSize(width: 254, height: 182)
-    player.position = CGPoint(x: self.size.width/2, y: 100 + 30)
+        player.position = CGPoint(x: player.position.x, y: 80 + 30)
         if(wasHit == false){
             wasHit = true
             player.run(attAnimation,completion:{
-            self.player.position = CGPoint(x: self.size.width/2, y: 100)
+            self.player.position = CGPoint(x: self.size.width/2, y: 80)
             self.player.size = CGSize(width: 128, height: 128)
             self.player.run(idleanimation,withKey: "animate")
             self.wasHit = false
@@ -149,7 +175,7 @@ class GameScene: SKScene {
     func Idle(){
         player.zPosition = 2
         player.size = CGSize(width: 128, height: 128)
-        player.position = CGPoint(x: size.width/2, y: 100)
+        player.position = CGPoint(x: size.width/2, y: 80)
         player.run(idleanimation, withKey: "animate")
         addChild(player)
         physicsWorld.gravity = .zero
@@ -194,7 +220,7 @@ class GameScene: SKScene {
         let monster = SKSpriteNode(imageNamed: "AlienWalking1")
         monster.size = CGSize(width: 128.0, height: 128.0)
         // Determine where to spawn the monster along the Y axis
-        let actualY = 100 //random(min: monster.size.height/2, max: size.height - monster.size.height/2)
+        let actualY = CGFloat(80.0) //random(min: monster.size.height/2, max: size.height - monster.size.height/2)
         if(whack<0.5){
             num = 0
         }
@@ -204,7 +230,7 @@ class GameScene: SKScene {
         // Position the monster slightly off-screen along the right edge,
         // and along a random position along the Y axis as calculated above
         monster.zPosition = 2
-        monster.position = CGPoint(x: num*(size.width), y: 100)
+        monster.position = CGPoint(x: num*(size.width), y: actualY)
         monster.run(alienWalkingAnimation,withKey: "alienWalk")
         if(!(monster.position.x > 0)){
             monster.xScale = monster.xScale * -1
@@ -226,13 +252,13 @@ class GameScene: SKScene {
             monster.physicsBody?.applyImpulse(CGVector(dx: random(min: 3.0, max: 5.0),dy: 0))
             
         }*/
-        let actualDuration = random(min: CGFloat(2.0), max: CGFloat(4.0))
+        let actualDuration = random(min: CGFloat(3.0), max: CGFloat(5.0))
         // Create the actions
         var alienDir = -1
         if(monster.position.x < size.width){
             alienDir = +1
         }
-        let actionMove = SKAction.move(to: CGPoint(x:player.position.x - CGFloat(alienDir*10) ,y: 100),
+        let actionMove = SKAction.move(to: CGPoint(x:player.position.x - CGFloat(alienDir*10) ,y: 80),
                                        duration: TimeInterval(actualDuration))
         let actionAttack = SKAction.move(to: CGPoint(x:player.position.x ,y: 100),
                                          duration: TimeInterval(actualDuration))
@@ -262,6 +288,7 @@ class GameScene: SKScene {
                                   duration: TimeInterval(0.0)))*/
         //addChild(monsterNoPhysics)
         monster.run(alienDAnimation.randomElement()!,completion:{
+            monster.speed = 0.1
             //self.monsterNoPhysics.texture = SKTexture(imageNamed: "AlienDeath.16")
             print("isDead")
             monster.removeFromParent()
@@ -270,11 +297,9 @@ class GameScene: SKScene {
         //monsterNoPhysics.removeFromParent()
         monstersDestroyed += 1
         score = monstersDestroyed * 100
-        /*if monstersDestroyed >= 10 {
-          let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
-            let gameOverScene = GameOverScene(size: self.size, won: true, incredibile: score)
-          view?.presentScene(gameOverScene, transition: reveal)
-        }*/ //DECOMMENTA SE VUOI LA VINCITA DEL GIOCO CON LA CONDIZIONE NELL'IF
+        if monstersDestroyed % 20 == 0 {
+          lvlSel += 1
+        }
 
     }
 }
@@ -296,6 +321,8 @@ extension GameScene: SKPhysicsContactDelegate {
           (secondBody.categoryBitMask & PhysicsCategory.player != 0)) {
         if let monster = firstBody.node as? SKSpriteNode,
           let player = secondBody.node as? SKSpriteNode {
+            monster.removeAction(forKey: "alienWalk")
+            monster.run(alienAttack, withKey: "alienattack")
             if((touchRight == true && monster.position.x > size.width/2) || (touchLeft == true && monster.position.x<size.width/2)){
                 baseballBatDidCollideWithMonster(player: player, monster: monster)
                 if(touchLeft){touchLeft = false}

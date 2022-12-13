@@ -17,6 +17,7 @@ public var alienDAnimation3 : SKAction!
 public var alienDAnimation : [SKAction] = [alienDAnimation1,alienDAnimation2,alienDAnimation3]
 public var gameOverAnim : SKAction!
 public var alienAttack : SKAction!
+public var openingGame: SKAction!
 
 public func deathAn()
 {
@@ -106,6 +107,13 @@ public func AlienAttAnim(){
         for i in 1...11 {
             AAttArr.append(SKTexture(imageNamed: "alienattack\(i)"))
         }
-    alienAttack = SKAction.animate(with: AAttArr, timePerFrame: 0.06)
+    alienAttack = SKAction.animate(with: AAttArr, timePerFrame: 0.03)
         
+}
+public func gameStart() {
+    var gameOp: [SKTexture] = []
+    for i in 1...13 {
+        gameOp.append(SKTexture(imageNamed: "Lights\(i)"))
+    }
+    openingGame = SKAction.animate(with: gameOp, timePerFrame: 0.08)
 }
