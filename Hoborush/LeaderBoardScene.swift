@@ -53,7 +53,7 @@ class LeaderBoardScene: SKScene {
          let gameOverScene = GameOverScene(size: self.size, won: false)
          self.view?.presentScene(gameOverScene, transition: reveal)
          }*/
-        //score = 0
+        score = 0
     }
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

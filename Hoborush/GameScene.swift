@@ -147,30 +147,30 @@ class GameScene: SKScene {
     func Attack(){
         run(SKAction.playSoundFileNamed("crit", waitForCompletion: false))
         if(touchRight){
-            turn = false
             if(!(player.xScale > 0)){
                 player.xScale = player.xScale * -1
             }
-            //turn = false
         }
         else if(touchLeft){
-            turn = true
             if((player.xScale > 0)){
                 player.xScale = player.xScale * -1
             }
         }
-    player.removeAction(forKey: "animate")
-    player.size = CGSize(width: 254, height: 182)
+        player.removeAction(forKey: "animate")
+        player.size = CGSize(width: 254, height: 182)
         player.position = CGPoint(x: player.position.x, y: 80 + 30)
-        if(wasHit == false){
-            wasHit = true
+        if(turn == false){
+            turn = true
             player.run(attAnimation,completion:{
-            self.player.position = CGPoint(x: self.size.width/2, y: 80)
-            self.player.size = CGSize(width: 128, height: 128)
-            self.player.run(idleanimation,withKey: "animate")
-            self.wasHit = false
-        })
+                self.player.position = CGPoint(x: self.size.width/2, y: 80)
+                self.player.size = CGSize(width: 128, height: 128)
+                self.player.run(idleanimation,withKey: "animate")
+                self.turn = false
+                
+            })
+            
         }
+        
     }
    public func Die(){
     player.removeAction(forKey: "animate")
@@ -221,6 +221,7 @@ class GameScene: SKScene {
                 touchLeft = false
                 Attack()
                 print("Right")
+
             } /*else {  //x is between -width / 4 and width / 4
                 touchMiddle = true
                 print("Middle")
@@ -293,6 +294,7 @@ class GameScene: SKScene {
     }
     func baseballBatDidCollideWithMonster(player: SKSpriteNode, monster: SKSpriteNode) {
       print("Hit")
+        wasHit = false
         run(SKAction.playSoundFileNamed("deathAlien", waitForCompletion: false))
         //wasHit = true
         //let actionMove = SKAction.
@@ -339,7 +341,10 @@ extension GameScene: SKPhysicsContactDelegate {
           let player = secondBody.node as? SKSpriteNode {
             monster.removeAction(forKey: "alienWalk")
             monster.run(alienAttack, withKey: "alienattack")
-            if((touchRight == true && monster.position.x > size.width/2) || (touchLeft == true && monster.position.x<size.width/2)){
+            if(player.size == CGSize(width: 254, height: 182)){
+                wasHit = true
+            }
+            if(((touchRight == true && monster.position.x > size.width/2) || (touchLeft == true && monster.position.x<size.width/2)) && wasHit == true){
                 baseballBatDidCollideWithMonster(player: player, monster: monster)
                 if(touchLeft){touchLeft = false}
                 else{touchRight = false}
