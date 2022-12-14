@@ -19,7 +19,7 @@ public var gameOverAnim : SKAction!
 public var alienAttack : SKAction!
 public var openingGame: SKAction!
 public var binAnim: SKAction!
-
+public var pistreloAnim : SKAction!
 public func deathAn()
 {
     var deadArr: [SKTexture] = []
@@ -46,11 +46,14 @@ public func idleAnimation()
 }
 public func HoboAttack(){
     var attArr: [SKTexture] = []
+    var pissArr: [SKTexture] = []
     for i in 1...8 {
         //var scaler = "HoboAttack\(i)"
         //scaler.resize(
+        pissArr.append(SKTexture(imageNamed: "Pistrelo\(i)"))
         attArr.append(SKTexture(imageNamed: "HoboAttack\(i)"))
     }
+    pistreloAnim =  SKAction.repeatForever(SKAction.animate(with: attArr, timePerFrame: 0.03))
     attAnimation = SKAction.animate(with: attArr, timePerFrame: 0.03)
 }
 public func AlienSmarmell(){
@@ -84,7 +87,7 @@ public func introAnim(){
         for i in 1...9 {
             introArr.append(SKTexture(imageNamed: "Intro\(i)"))
         }
-    introAnima = SKAction.repeatForever(SKAction.animate(with: introArr, timePerFrame: 0.5))
+    introAnima = SKAction.repeatForever(SKAction.animate(with: introArr, timePerFrame: 0.3))
         
 }
 public func teamAnim(){
@@ -92,7 +95,7 @@ public func teamAnim(){
         for i in 1...15 {
             teamArr.append(SKTexture(imageNamed: "LogoGamefix\(i)"))
         }
-    teamAnima = SKAction.animate(with: teamArr, timePerFrame: 0.45)
+    teamAnima = SKAction.animate(with: teamArr, timePerFrame: 0.35)
         
 }
 public func GOAnim(){

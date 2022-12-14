@@ -13,7 +13,7 @@ import UIKit
 var scoreShower: SKLabelNode!
 public var score = 0 {
     didSet {
-    scoreShower.text = "\(score)"
+        scoreShower?.text = "\(score)"
 }
 }
 struct PhysicsCategory {
@@ -26,6 +26,7 @@ struct PhysicsCategory {
 class GameScene: SKScene {
     var touchLeft : Bool = false
     var touchRight : Bool = false
+    var attendi : Bool = false
     var turn : Bool = false
     var wasHit: Bool = false
     var monstersDestroyed = 0
@@ -42,7 +43,7 @@ class GameScene: SKScene {
     var precLvl: Int = 1
     var mike : CGFloat = 1.0
     override func didMove(to view: SKView) {
-        
+        score = 0
         background.position = CGPoint(x: size.width/2, y: size.height/2)
         background.size = frame.size
         background.zPosition = 0
@@ -84,12 +85,15 @@ class GameScene: SKScene {
                                 print("x")
                                 SKAction.wait(forDuration: 3.0)
                                 self.lvlLab.removeFromParent()
-                                
+                                self.attendi = true
                                /* self.run(rimuovi, completion: {
                                     SKAction.wait(forDuration: 10)
                                     print("z")})*/
                                 
                             })
+                        }},
+                        SKAction.run{ [self] in if (self.attendi){
+                            SKAction.wait(forDuration: 10)
                         }},
                         SKAction.wait(forDuration: self.mike)
                     ])
@@ -203,7 +207,7 @@ class GameScene: SKScene {
         player.physicsBody?.usesPreciseCollisionDetection = true
     }
     func random() -> CGFloat {
-        return CGFloat(Float(arc4random()) / 0xFFFFFFFF)
+        return CGFloat(Float(arc4random()) / 4294967296)
     }
     func random(min: CGFloat, max: CGFloat) -> CGFloat {
         return random() * (max - min) + min
@@ -259,15 +263,15 @@ class GameScene: SKScene {
         monster.physicsBody?.contactTestBitMask = PhysicsCategory.player // 4
         monster.physicsBody?.collisionBitMask = PhysicsCategory.none // 5
         // Determine speed of the monster
-       /* monster.physicsBody?.velocity = self.physicsBody!.velocity
-        if(num == 0){
-            monster.physicsBody?.applyImpulse(CGVector(dx: -1 * random(min: 3.0, max: 5.0),dy: 0))
-            
-        }
-        else{
-            monster.physicsBody?.applyImpulse(CGVector(dx: random(min: 3.0, max: 5.0),dy: 0))
-            
-        }*/
+        /* monster.physicsBody?.velocity = self.physicsBody!.velocity
+         if(num == 0){
+         monster.physicsBody?.applyImpulse(CGVector(dx: -1 * random(min: 3.0, max: 5.0),dy: 0))
+         
+         }
+         else{
+         monster.physicsBody?.applyImpulse(CGVector(dx: random(min: 3.0, max: 5.0),dy: 0))
+         
+         }*/
         let actualDuration = random(min: CGFloat(3.0), max: CGFloat(5.0))
         // Create the actions
         var alienDir = -1
@@ -276,18 +280,16 @@ class GameScene: SKScene {
         }
         let actionMove = SKAction.move(to: CGPoint(x:player.position.x - CGFloat(alienDir*10) ,y: 80),
                                        duration: TimeInterval(actualDuration))
-        let actionAttack = SKAction.move(to: CGPoint(x:player.position.x ,y: 100),
-                                         duration: TimeInterval(actualDuration))
         let actionMoveDone: SKAction = SKAction.removeFromParent()
         /*if ((monster.position.x < player.position.x + 150 && monster.position.x > size.width/2) || (monster.position.x > player.position.x - 150 && monster.position.x < size.width/2 )){
-                          monster.removeAction(forKey: "alienWalk")
-                          monster.run(alienAttack,withKey: "alienattack")
-                      }*/
-        let loseAction = SKAction.run() { [weak self] in
-          guard let `self` = self else { return }
-            let reveal = SKTransition.fade(withDuration: 0.5)
-            let gameOverScene = GameOverScene(size: self.size, won: false, incredibile: score)
-          self.view?.presentScene(gameOverScene, transition: reveal)
+         monster.removeAction(forKey: "alienWalk")
+         monster.run(alienAttack,withKey: "alienattack")
+         }*/
+        let loseAction = SKAction.run() { [weak self] in // // //
+            guard let `self` = self else { return }
+                let reveal = SKTransition.fade(withDuration: 0.5)
+                let gameOverScene = GameOverScene(size: self.size, won: false, incredibile: score)
+                self.view?.presentScene(gameOverScene, transition: reveal)
         }
         monster.run(SKAction.sequence([actionMove,loseAction,SKAction.wait(forDuration: 20),actionMoveDone]))
 

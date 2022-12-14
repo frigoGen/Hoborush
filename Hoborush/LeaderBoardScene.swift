@@ -6,6 +6,8 @@
 //
 
 import SpriteKit
+import UIKit
+
 
 //public var newScores = [salvataggio]()
 var playButton = SKSpriteNode(imageNamed: "startGame-export")
@@ -14,14 +16,27 @@ var title = SKSpriteNode(imageNamed: "title1")
 var testoPazzo = SKLabelNode(fontNamed: "Emulogic")
 
 class LeaderBoardScene: SKScene {
-    override init(size: CGSize) {
+     init(size: CGSize,score: Int) {
         super.init(size: size)
         let coloriPazzi = [UIColor.systemYellow,UIColor.systemGray,UIColor.systemBrown]
         backgroundColor = .black
         let scores = loadScores()
         let personalScore = SKLabelNode(fontNamed: "Emulogic")
         var scoreHeight = frame.midY
-        //playButton = SKSpriteNode(texture: playButtonTex)
+//
+        let sceneFrame = CGRect(origin: .zero, size: CGSize(width: 200, height: 200))
+        var scene = SKScene(size: sceneFrame.size)
+        scene.backgroundColor = UIColor.lightGray
+
+        let textFieldFrame = CGRect(origin: .zero, size: CGSize(width: 200, height: 30))
+        let textField = UITextField(frame: textFieldFrame)
+        textField.backgroundColor = UIColor.white
+        textField.placeholder = "Enter your name here"
+        let skView = SKView(frame: sceneFrame)
+        skView.addSubview(textField)
+        skView.presentScene(scene)
+       // self.view.current.liveView = skView
+//
         testoPazzo.text = "High Scores"
         title.position = CGPoint(x: frame.midX, y: frame.maxY - 50.0)
         testoPazzo.position = CGPoint(x: title.position.x, y: title.position.y - 1.3*title.size.height)
@@ -53,7 +68,6 @@ class LeaderBoardScene: SKScene {
          let gameOverScene = GameOverScene(size: self.size, won: false)
          self.view?.presentScene(gameOverScene, transition: reveal)
          }*/
-        score = 0
     }
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -64,14 +78,16 @@ class LeaderBoardScene: SKScene {
             let node = self.atPoint(pos)
             
             if node == playButton {
-                if let view = view {
+                run(SKAction.playSoundFileNamed("suonoBackToMenu.wav", waitForCompletion: true))
+                if view != nil {
                     let transition:SKTransition = SKTransition.fade(withDuration: 1)
                     let scene:SKScene = GameScene(size: self.size)
                     self.view?.presentScene(scene, transition: transition)
                 }
             }
             else if(node == MenuButton){
-                if let view = view {
+                run(SKAction.playSoundFileNamed("suonoBackToMenu.wav", waitForCompletion: true))
+                if view != nil {
                     let transition:SKTransition = SKTransition.fade(withDuration: 1)
                     let scene:SKScene = MainMenuScene(size: self.size)
                     self.view?.presentScene(scene, transition: transition)
