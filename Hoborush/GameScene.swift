@@ -443,7 +443,7 @@ extension GameScene: SKPhysicsContactDelegate {
                 wasUpHit = true
             }
             if monster.texture == SKTexture(imageNamed: "AlienWalking1")
-            {monster.removeAction(forKey: "alienWalk")
+            { monster.removeAction(forKey: "alienWalk")
                 monster.run(alienAttack, withKey: "alienattack")
             }
             if(((touchRight == true && monster.position.x > size.width/2) || (touchLeft == true && monster.position.x<size.width/2)) && wasHit == true){
@@ -451,7 +451,7 @@ extension GameScene: SKPhysicsContactDelegate {
                 if(touchLeft){touchLeft = false}
                 else{touchRight = false}
             }
-            if(((touchRight == true && monster.position.x > size.width/2) || (touchLeft == true && monster.position.x<size.width/2)) && wasUpHit == true){
+            else if(((touchRight == true && monster.position.x > size.width/2) || (touchLeft == true && monster.position.x<size.width/2)) && wasUpHit == true){
                 shotGunHit(player: player, monster: monster)
                 if(touchLeft){touchLeft = false}
                 else{touchRight = false}

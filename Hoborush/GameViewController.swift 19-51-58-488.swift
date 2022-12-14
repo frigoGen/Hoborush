@@ -26,6 +26,7 @@ class GameViewController: UIViewController {
     }
     override func viewDidLoad() {
             authenticateLocalPlayer()
+            self.view.isMultipleTouchEnabled = false
             let scene2 = GameScene(size: view.bounds.size)
             let scene1 = GameStartUPScene(size: view.bounds.size)
        //     let scene3 = LeaderBoardScene(size: view.bounds.size)

@@ -55,8 +55,6 @@ public func HoboAttack(){
     var attArr: [SKTexture] = []
     var pissArr: [SKTexture] = []
     for i in 1...8 {
-        //var scaler = "HoboAttack\(i)"
-        //scaler.resize(
         pissArr.append(SKTexture(imageNamed: "Pistrelo\(i)"))
         attArr.append(SKTexture(imageNamed: "HoboAttack\(i)"))
     }
