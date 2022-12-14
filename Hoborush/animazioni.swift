@@ -19,7 +19,10 @@ public var gameOverAnim : SKAction!
 public var alienAttack : SKAction!
 public var openingGame: SKAction!
 public var binAnim: SKAction!
+public var shotAnim: SKAction!
 public var pistreloAnim : SKAction!
+public var pDeadAnima : SKAction!
+
 public func deathAn()
 {
     var deadArr: [SKTexture] = []
@@ -39,10 +42,14 @@ public func AlienWalkAn()
 public func idleAnimation()
 {
     var idleArr: [SKTexture] = []
+    var shotArr: [SKTexture] = []
     for i in 1...5 {
         idleArr.append(SKTexture(imageNamed: "HoboIdle\(i)"))
+        shotArr.append(SKTexture(imageNamed: "HoboShotgun\(i)"))
+
     }
     idleanimation = SKAction.repeatForever(SKAction.animate(with: idleArr, timePerFrame: 0.15))
+    shotAnim = SKAction.animate(with: shotArr, timePerFrame: 0.09)
 }
 public func HoboAttack(){
     var attArr: [SKTexture] = []
@@ -53,7 +60,7 @@ public func HoboAttack(){
         pissArr.append(SKTexture(imageNamed: "Pistrelo\(i)"))
         attArr.append(SKTexture(imageNamed: "HoboAttack\(i)"))
     }
-    pistreloAnim =  SKAction.repeatForever(SKAction.animate(with: attArr, timePerFrame: 0.03))
+    pistreloAnim =  SKAction.repeatForever(SKAction.animate(with: pissArr, timePerFrame: 0.1))
     attAnimation = SKAction.animate(with: attArr, timePerFrame: 0.03)
 }
 public func AlienSmarmell(){
@@ -84,11 +91,14 @@ public func AlienSmarmell3(){
     }
 public func introAnim(){
     var introArr: [SKTexture] = []
+    var pDeathArr: [SKTexture] = []
         for i in 1...9 {
             introArr.append(SKTexture(imageNamed: "Intro\(i)"))
+            pDeathArr.append(SKTexture(imageNamed: "pistrelodeath\(i)"))
         }
     introAnima = SKAction.repeatForever(SKAction.animate(with: introArr, timePerFrame: 0.3))
-        
+    pDeadAnima = SKAction.animate(with: pDeathArr, timePerFrame: 0.3)
+
 }
 public func teamAnim(){
     var teamArr: [SKTexture] = []
@@ -127,4 +137,13 @@ public func binBuild() {
         gameOp.append(SKTexture(imageNamed: "firebin\(i)"))
     }
     binAnim = SKAction.repeatForever(SKAction.animate(with: gameOp, timePerFrame: 0.15))
+}
+
+public func AFlyAnim(){
+    var pDeathArr: [SKTexture] = []
+        for i in 1...9 {
+            pDeathArr.append(SKTexture(imageNamed: "pistrelodeath\(i)"))
+        }
+    pDeadAnima = SKAction.animate(with: pDeathArr, timePerFrame: 0.03)
+
 }

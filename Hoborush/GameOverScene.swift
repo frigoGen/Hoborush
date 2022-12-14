@@ -27,7 +27,7 @@ class GameOverScene: SKScene {
         super.init(size: size)
         
     backgroundColor = SKColor.black
-        var scene: SKScene
+    var scene: SKScene!
     // 2
     giocatore = salvataggio(nome: "ABC",punti: incredibile)
     //let message = won ? "You Won!" : "You Lose :["
@@ -53,9 +53,9 @@ class GameOverScene: SKScene {
                 player.removeFromParent()
                 SKAction.wait(forDuration: 8.0)
                 gameOverNode.removeFromParent()
-                let textFieldFrame = CGRect(origin: CGPoint(x: self.frame.minX + 50, y: self.frame.midY), size: CGSize(width: 500, height: 30))
+                let textFieldFrame = CGRect(origin: CGPoint(x: self.frame.minX + 50, y: self.frame.minY + 50), size: CGSize(width: 500, height: 30))
                 self.bottone.size = CGSize(width: 150, height: 40)
-                self.bottone.position = CGPoint(x: self.frame.midX, y: self.frame.minY+self.bottone.size.height)
+                self.bottone.position = CGPoint(x: self.frame.maxX - self.bottone.size.width - 10, y: self.frame.maxY - self.bottone.size.height - 25)
                 self.textField = UITextField(frame: textFieldFrame)
                 self.textField.backgroundColor = SKColor.systemYellow
                 self.textField.placeholder = "Enter your Name"
@@ -92,7 +92,7 @@ class GameOverScene: SKScene {
            if node == bottone {
                run(SKAction.playSoundFileNamed("suonoStartGame1.wav", waitForCompletion: true))
                self.giocatore.nome = String(self.textField.text!.prefix(3))
-               if giocatore.nome == "" || giocatore.nome == nil {giocatore.nome = "ABC"}
+               if giocatore.nome == "" {giocatore.nome = "ABC"}
                textField.removeFromSuperview()
                print("NUOVO NOME: \(self.giocatore.nome)")
                updateHighScore(giocatore: giocatore)

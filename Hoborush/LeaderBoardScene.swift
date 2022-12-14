@@ -25,7 +25,7 @@ class LeaderBoardScene: SKScene {
         var scoreHeight = frame.midY
 //
         let sceneFrame = CGRect(origin: .zero, size: CGSize(width: 200, height: 200))
-        var scene = SKScene(size: sceneFrame.size)
+        let scene = SKScene(size: sceneFrame.size)
         scene.backgroundColor = UIColor.lightGray
 
         let textFieldFrame = CGRect(origin: .zero, size: CGSize(width: 200, height: 30))
