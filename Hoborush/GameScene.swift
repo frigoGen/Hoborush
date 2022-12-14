@@ -373,13 +373,21 @@ class GameScene: SKScene {
         run(SKAction.playSoundFileNamed("deathAlien", waitForCompletion: false))
         monster.physicsBody = nil
         monster.removeAction(forKey: "alienattack")
-        
-        monster.run(alienDAnimation.randomElement()!,completion:{
-            monster.speed = 0.1
-            //self.monsterNoPhysics.texture = SKTexture(imageNamed: "AlienDeath.16")
-            print("isDead")
-            monster.removeFromParent()
-        })
+        if(monster.texture == SKTexture(imageNamed: "AlienWalking1") ){
+            monster.run(alienDAnimation.randomElement()!,completion:{
+                monster.speed = 0.1
+                //self.monsterNoPhysics.texture = SKTexture(imageNamed: "AlienDeath.16")
+                print("isDead")
+                monster.removeFromParent()
+            })}
+        else{
+            monster.run(pDeadAnima,completion:{
+                monster.speed = 0.1
+                //self.monsterNoPhysics.texture = SKTexture(imageNamed: "AlienDeath.16")
+                print("isDead")
+                monster.removeFromParent()
+            })
+        }
         
         //monsterNoPhysics.removeFromParent()
         monstersDestroyed += 1
