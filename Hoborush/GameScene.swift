@@ -435,7 +435,7 @@ class GameScene: SKScene {
                 //monster.speed = 0.1
                 print("isDead")
                 monster.removeFromParent()
-                self.monstersDestroyed += 1
+                self.monstersDestroyed += 2
                 score = self.monstersDestroyed * 100
                 if self.monstersDestroyed % 20 == 0 {
                     self.lvlSel += 1
