@@ -13,11 +13,17 @@ class MainMenuScene: SKScene {
     var leaderButton = SKSpriteNode(imageNamed: "leaderboard")
     var eggButton = SKShapeNode(circleOfRadius: 25)
     var title = SKSpriteNode(imageNamed: "title1")
+    var background = SKSpriteNode(imageNamed: "Intro9")
     var eggVar = 2
     //var back
      override func didMove(to view: SKView) {
+         background.zPosition = 0
+         background.position = CGPoint(x: frame.midX, y: frame.midY)
+         background.size =  CGSize(width: size.width, height: size.height)
         title.position = CGPoint(x: frame.midX, y: frame.maxY-title.size.height)
-        playButton.position = CGPoint(x: frame.midX, y: frame.minY+playButton.size.height/2)
+         title.zPosition = 1
+        playButton.position = CGPoint(x: frame.midX, y: frame.midY)
+         playButton.zPosition = 1
         playButton.size = CGSize(width: 150, height: 40)
          leaderButton.size = playButton.size
          leaderButton.position = CGPoint(x: playButton.position.x, y: playButton.position.y - leaderButton.size.height - 15)
@@ -25,6 +31,7 @@ class MainMenuScene: SKScene {
          eggButton.fillColor = .darkGray
          //eggButton.alpha = 0.2
          eggButton.run(SKAction.fadeOut(withDuration: 0.9 ))
+         self.addChild(background)
         self.addChild(playButton)
          self.addChild(leaderButton)
         self.addChild(title)

@@ -22,6 +22,10 @@ public var binAnim: SKAction!
 public var shotAnim: SKAction!
 public var pistreloAnim : SKAction!
 public var pDeadAnima : SKAction!
+public var ufoAnim : SKAction!
+public var alienoPazzo1 : SKAction!
+public var alienoPazzo2 : SKAction!
+public var alienoPazzoD : SKAction!
 
 public func deathAn()
 {
@@ -34,10 +38,15 @@ public func deathAn()
 public func AlienWalkAn()
 {
     var alienWArr: [SKTexture] = []
+    var alienC1Arr: [SKTexture] = []
+
     for i in 1...7 {
         alienWArr.append(SKTexture(imageNamed: "AlienWalking\(i)"))
+        alienC1Arr.append(SKTexture(imageNamed: "AlienoPazzo\(i)"))
+
     }
     alienWalkingAnimation = SKAction.repeatForever(SKAction.animate(with: alienWArr, timePerFrame: 0.1))
+    alienoPazzo1 = SKAction.repeatForever(SKAction.animate(with: alienC1Arr, timePerFrame: 0.1))
 }
 public func idleAnimation()
 {
@@ -71,32 +80,35 @@ public func AlienSmarmell1(){
         for i in 1...16 {
             alienDArr.append(SKTexture(imageNamed: "AlienDeath.\(i)"))
         }
-        alienDAnimation1 = SKAction.animate(with: alienDArr, timePerFrame: 0.03)
+        alienDAnimation1 = SKAction.animate(with: alienDArr, timePerFrame: 0.5)
     }
 public func AlienSmarmell2(){
     var alienDArr: [SKTexture] = []
         for i in 1...16 {
             alienDArr.append(SKTexture(imageNamed: "AlienDeath2.\(i)"))
         }
-        alienDAnimation2 = SKAction.animate(with: alienDArr, timePerFrame: 0.03)
+        alienDAnimation2 = SKAction.animate(with: alienDArr, timePerFrame: 0.5)
     }
 public func AlienSmarmell3(){
     var alienDArr: [SKTexture] = []
         for i in 1...16 {
             alienDArr.append(SKTexture(imageNamed: "AlienDeath3.\(i)"))
         }
-        alienDAnimation3 = SKAction.animate(with: alienDArr, timePerFrame: 0.03)
+        alienDAnimation3 = SKAction.animate(with: alienDArr, timePerFrame: 0.5)
     }
 public func introAnim(){
     var introArr: [SKTexture] = []
     var pDeathArr: [SKTexture] = []
+    var pDeathArr1: [SKTexture] = []
+
         for i in 1...9 {
             introArr.append(SKTexture(imageNamed: "Intro\(i)"))
             pDeathArr.append(SKTexture(imageNamed: "pistrelodeath\(i)"))
+            pDeathArr1.append(SKTexture(imageNamed: "Alienopazzomorto\(i)"))
         }
     introAnima = SKAction.repeatForever(SKAction.animate(with: introArr, timePerFrame: 0.3))
     pDeadAnima = SKAction.animate(with: pDeathArr, timePerFrame: 0.3)
-
+    alienoPazzoD = SKAction.animate(with: pDeathArr1, timePerFrame: 0.3)
 }
 public func teamAnim(){
     var teamArr: [SKTexture] = []
@@ -108,11 +120,15 @@ public func teamAnim(){
 }
 public func GOAnim(){
     var goArr: [SKTexture] = []
+    var go1Arr: [SKTexture] = []
+
         for i in 1...3 {
             goArr.append(SKTexture(imageNamed: "gameover\(i)"))
+            go1Arr.append(SKTexture(imageNamed: "AlienoPazzoprimohit\(i)"))
+
         }
     gameOverAnim = SKAction.repeatForever(SKAction.animate(with: goArr, timePerFrame: 0.45))
-        
+    alienoPazzo2 = SKAction.repeatForever(SKAction.animate(with: go1Arr, timePerFrame: 0.45))
 }
 public func AlienAttAnim(){
     var AAttArr: [SKTexture] = []
@@ -131,10 +147,16 @@ public func gameStart() {
 }
 public func binBuild() {
     var gameOp: [SKTexture] = []
+    var ufoArr : [SKTexture] = []
     for i in 1...6 {
         gameOp.append(SKTexture(imageNamed: "firebin\(i)"))
+        ufoArr.append(SKTexture(imageNamed: "uforay\(i)"))
+
     }
     binAnim = SKAction.repeatForever(SKAction.animate(with: gameOp, timePerFrame: 0.15))
+    ufoAnim = SKAction.repeatForever(SKAction.animate(with: ufoArr, timePerFrame: 0.15))
+
+    
 }
 
 public func AFlyAnim(){
