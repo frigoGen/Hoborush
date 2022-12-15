@@ -46,7 +46,7 @@ public func AlienWalkAn()
 
     }
     alienWalkingAnimation = SKAction.repeatForever(SKAction.animate(with: alienWArr, timePerFrame: 0.1))
-    alienoPazzo1 = SKAction.repeatForever(SKAction.animate(with: alienC1Arr, timePerFrame: 0.1))
+    alienoPazzo1 = SKAction.repeatForever(SKAction.animate(with: alienC1Arr, timePerFrame: 0.05))
 }
 public func idleAnimation()
 {
@@ -107,8 +107,8 @@ public func introAnim(){
             pDeathArr1.append(SKTexture(imageNamed: "Alienopazzomorto\(i)"))
         }
     introAnima = SKAction.repeatForever(SKAction.animate(with: introArr, timePerFrame: 0.3))
-    pDeadAnima = SKAction.animate(with: pDeathArr, timePerFrame: 0.3)
-    alienoPazzoD = SKAction.animate(with: pDeathArr1, timePerFrame: 0.3)
+    pDeadAnima = SKAction.animate(with: pDeathArr, timePerFrame: 0.03)
+    alienoPazzoD = SKAction.animate(with: pDeathArr1, timePerFrame: 0.05)
 }
 public func teamAnim(){
     var teamArr: [SKTexture] = []
@@ -128,7 +128,7 @@ public func GOAnim(){
 
         }
     gameOverAnim = SKAction.repeatForever(SKAction.animate(with: goArr, timePerFrame: 0.45))
-    alienoPazzo2 = SKAction.repeatForever(SKAction.animate(with: go1Arr, timePerFrame: 0.45))
+    alienoPazzo2 = SKAction.repeatForever(SKAction.animate(with: go1Arr, timePerFrame: 0.1))
 }
 public func AlienAttAnim(){
     var AAttArr: [SKTexture] = []

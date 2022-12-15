@@ -89,6 +89,7 @@ class GameScene: SKScene {
         binBuild()
         AFlyAnim()
         GOAnim()
+        introAnim()
         gameStart()
         AlienAttAnim()
         AlienWalkAn()
@@ -315,24 +316,29 @@ class GameScene: SKScene {
         var actualY: CGFloat = 0
         var actualX: CGFloat = 0
         // Create sprite
-        let sprites : [SKTexture] = [SKTexture(imageNamed: "AlienWalking1"),SKTexture(imageNamed:"Pistrelo1")]
+        let sprites : [SKTexture] = [SKTexture(imageNamed: "AlienWalking1"),SKTexture(imageNamed:"Pistrelo1"),SKTexture(imageNamed: "AlienoPazzo1")]
         let monster = SKSpriteNode()
         monster.texture = sprites.randomElement()
         if monster.texture == sprites[0]{
             actualY = 80
             actualX = frame.width
             monster.size = CGSize(width: 128.0, height: 128.0)
+            //monster.setValue("false", forKey: "name")
+            print("cock1")
         }
         else if monster.texture == sprites[1]{
             actualY = frame.height
             actualX = frame.width
             monster.size = CGSize(width: 96.0, height: 96.0)
+           // monster.setValue("false", forKey: "name")
+            print("cock2")
         }
         else if monster.texture == sprites[2]{
             actualY = frame.height
             actualX = frame.width
             monster.size = CGSize(width: 132.0, height: 132.0)
-            monster.setValue("false", forKey: "wasHit")
+            monster.setValue("false", forKey: "name")
+            print("cock3")
         }
         
         // Determine where to spawn the monster along the Y axis
@@ -398,14 +404,14 @@ class GameScene: SKScene {
         monster.removeAction(forKey: "alienattack")
         if(monster.texture == SKTexture(imageNamed: "AlienWalking1") ){
             monster.run(alienDAnimation.randomElement()!,completion:{
-                monster.speed = 0.1
+                //monster.speed = 0.1
                 //self.monsterNoPhysics.texture = SKTexture(imageNamed: "AlienDeath.16")
                 print("isDead")
                 monster.removeFromParent()
             })}
         else{
             monster.run(pDeadAnima,completion:{
-                monster.speed = 0.1
+                //monster.speed = 0.1
                 //self.monsterNoPhysics.texture = SKTexture(imageNamed: "AlienDeath.16")
                 print("isDead")
                 monster.removeFromParent()
@@ -422,10 +428,11 @@ class GameScene: SKScene {
         print("UpHit")
         projectile.removeFromParent()
         alreadyShot = false
-        if monster.size == CGSize(width: 132.0, height: 132.0) && monster.value(forKey: "wasHit") as! String == "true" {
-            monster.removeAllActions()
+        if monster.size == CGSize(width: 132.0, height: 132.0) && monster.value(forKey: "name") as! String == "true" {
+            monster.removeAction(forKey: "alienShot")
+            monster.physicsBody = nil
             monster.run(alienoPazzoD,completion:{
-                monster.speed = 0.1
+                //monster.speed = 0.1
                 print("isDead")
                 monster.removeFromParent()
                 self.monstersDestroyed += 1
@@ -436,20 +443,17 @@ class GameScene: SKScene {
             })
             
         }
-        else if monster.size == CGSize(width: 132.0, height: 132.0) && monster.value(forKey: "wasHit") as! String == "false" {
-            monster.setValue("true", forKey: "wasHit")
+        else if monster.size == CGSize(width: 132.0, height: 132.0) && monster.value(forKey: "name") as! String == "false" {
+            monster.setValue("true", forKey: "name")
             monster.removeAction(forKey: "alienwalk")
-            monster.run(alienoPazzo2,completion:{
-                monster.speed = 0.1
-                print("isDead")
-                
-            })
+            monster.run(alienoPazzo2,withKey: "alienShot")
             
         }
         run(SKAction.playSoundFileNamed("deathAlien", waitForCompletion: false))
-        monster.physicsBody = nil
+        
         if(monster.size == CGSize(width: 96.0, height: 96.0)){
             monster.removeAction(forKey: "pistrelo")
+            monster.physicsBody = nil
             monster.run(pDeadAnima,completion:{
                 monster.speed = 0.1
                 print("isDead")
