@@ -14,13 +14,45 @@ var scoreShower: SKLabelNode!
 public var score = 0 {
     didSet {
         scoreShower?.text = "\(score)"
-}
+    }
 }
 struct PhysicsCategory {
-  static let none      : UInt32 = 0
-  static let all       : UInt32 = UInt32.max
-  static let monster   : UInt32 = 0b1       // 1
-  static let player: UInt32 = 0b10      // 2
+    static let none      : UInt32 = 0
+    static let all       : UInt32 = UInt32.max
+    static let monster   : UInt32 = 0b1       // 1
+    static let player: UInt32 = 0b10
+    static let projectile: UInt32 = 0b10// 2
+}
+func +(left: CGPoint, right: CGPoint) -> CGPoint {
+    return CGPoint(x: left.x + right.x, y: left.y + right.y)
+}
+
+func -(left: CGPoint, right: CGPoint) -> CGPoint {
+    return CGPoint(x: left.x - right.x, y: left.y - right.y)
+}
+
+func *(point: CGPoint, scalar: CGFloat) -> CGPoint {
+    return CGPoint(x: point.x * scalar, y: point.y * scalar)
+}
+
+func /(point: CGPoint, scalar: CGFloat) -> CGPoint {
+    return CGPoint(x: point.x / scalar, y: point.y / scalar)
+}
+
+#if !(arch(x86_64) || arch(arm64))
+func sqrt(a: CGFloat) -> CGFloat {
+    return CGFloat(sqrtf(Float(a)))
+}
+#endif
+
+extension CGPoint {
+    func length() -> CGFloat {
+        return sqrt(x*x + y*y)
+    }
+    
+    func normalized() -> CGPoint {
+        return self / length()
+    }
 }
 
 class GameScene: SKScene {
@@ -35,8 +67,8 @@ class GameScene: SKScene {
     var background = SKSpriteNode(imageNamed: "Background")
     var backM = SKAudioNode(fileNamed:"backgroundMusic")
     /*var hoboHit = SKAudioNode(fileNamed:"hoboScream1")
-    var hoboHit1 = SKAudioNode(fileNamed:"hoboScream2")
-    var hitPazzo = SKAudioNode(fileNamed:"crit")*/
+     var hoboHit1 = SKAudioNode(fileNamed:"hoboScream2")
+     var hitPazzo = SKAudioNode(fileNamed:"crit")*/
     var bin = SKSpriteNode(imageNamed: "firebin1")
     var lightNode = SKSpriteNode(imageNamed: "Lights1")
     var lvlLab = SKLabelNode(fontNamed: "Emulogic")
@@ -76,39 +108,40 @@ class GameScene: SKScene {
         lightNode.run(openingGame,completion: {
             SKAction.wait(forDuration: 5.0)
             self.run(SKAction.repeatForever(
-                    SKAction.sequence([
-                        SKAction.run(self.addMonster),
-                        SKAction.run{ [self] in if (self.precLvl < self.lvlSel){
-                            self.lvlLab.text = "Wave \(self.lvlSel)"
-                            self.precLvl+=1
-                            addChild(lvlLab)
-                            self.lightNode.run(openingGame, completion: {
-                                self.mike = self.mike*CGFloat(0.75)
-                                print("x")
-                                SKAction.wait(forDuration: 3.0)
-                                self.lvlLab.removeFromParent()
-                                self.attendi = true
-                               /* self.run(rimuovi, completion: {
-                                    SKAction.wait(forDuration: 10)
-                                    print("z")})*/
-                                
-                            })
-                        }},
-                        SKAction.run{ [self] in if (self.attendi){
-                            SKAction.wait(forDuration: 10)
-                        }},
-                        SKAction.wait(forDuration: self.mike)
-                    ])
-                ))
+                SKAction.sequence([
+                    SKAction.run(self.addMonster),
+                    SKAction.run{ [self] in if (self.precLvl < self.lvlSel){
+                        self.lvlLab.text = "Wave \(self.lvlSel)"
+                        self.precLvl+=1
+                        addChild(lvlLab)
+                        self.lightNode.run(openingGame, completion: {
+                            self.mike = self.mike*CGFloat(0.5)
+                            print("x")
+                            SKAction.wait(forDuration: 3.0)
+                            self.lvlLab.removeFromParent()
+                            self.attendi = true
+                            /* self.run(rimuovi, completion: {
+                             SKAction.wait(forDuration: 10)
+                             print("z")})*/
+                            
+                        })
+                    }},
+                    SKAction.run{ [self] in if (self.attendi){
+                        SKAction.wait(forDuration: 10)
+                        attendi = false
+                    }},
+                    SKAction.wait(forDuration: 1.0)
+                ])
+            ))
         })
         
-            
+        
         //HoboAttack()
         //SKAction.removeFromParent()
         //let actionMove = SKAction.run(HoboAttack)
         bin.size = CGSize(width: 128, height: 128)
         bin.zPosition = 1
-        bin.position = CGPoint(x: frame.minX + 50, y: player.position.y + 10)
+        bin.position = CGPoint(x: frame.minX + 70, y: player.position.y + 10)
         scoreShower = SKLabelNode(text: "\(score)")
         scoreShower.fontColor = .green
         scoreShower.fontName = "Emulogic"
@@ -121,35 +154,8 @@ class GameScene: SKScene {
     }
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
-       /*for node in self.children {
-          // Check if the node is an SKSpriteNode and if it's in the desired position
-            if let spriteNode = node as? SKSpriteNode, spriteNode.position == CGPoint(x:player.position.x + 50,y:player.position.y) {
-            // Set the texture of the node to the new texture
-                
-          }
-        }*/
         
     }
-    /*func alienDie(monster: SKNode){
-        /*if(monster.position.x < size.width/2){
-                monster.xScale = player.xScale * -1
-            }
-            //turn = false
-        }
-        else if(touchLeft){
-            turn = true
-            if((player.xScale > 0)){
-                player.xScale = player.xScale * -1
-            }
-        }*/
-        print("yes")
-    monster.removeAction(forKey: "alienWalk")
-    monster.run(alienDAnimation,completion:{
-        //self.player.position = CGPoint(x: self.size.width/2, y: self.size.height/2)
-        //self.player.size = CGSize(width: 128, height: 128)
-        monster.run(alienWalkingAnimation,withKey: "alienWalk")
-    })
-    }*/
     func Attack(){
         run(SKAction.playSoundFileNamed("crit", waitForCompletion: false))
         if(touchRight){
@@ -190,9 +196,11 @@ class GameScene: SKScene {
                 player.xScale = player.xScale * -1
             }
         }
+        wasUpHit = true
         player.removeAction(forKey: "animate")
         player.size = CGSize(width: 180, height: 190)
         player.position = CGPoint(x: player.position.x, y: 80)
+        turn = false
         if(turn == false){
             turn = true
             player.run(shotAnim,completion:{
@@ -207,12 +215,12 @@ class GameScene: SKScene {
         }
         
     }
-   public func Die(){
-    player.removeAction(forKey: "animate")
-    player.run(deathAnimation,completion:{
-        //self.player.run(idleanimation,withKey: "animate")
-        SKAction.wait(forDuration: 3.0)
-    })
+    public func Die(){
+        player.removeAction(forKey: "animate")
+        player.run(deathAnimation,completion:{
+            //self.player.run(idleanimation,withKey: "animate")
+            SKAction.wait(forDuration: 3.0)
+        })
     }
     func MainMenu(){
         SKAction.run() { [weak self] in
@@ -230,8 +238,7 @@ class GameScene: SKScene {
         addChild(player)
         physicsWorld.gravity = .zero
         physicsWorld.contactDelegate = self
-        
-            player.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: "HoboShotgun5") , size: player.size)
+        player.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: "HoboAttack4") , size: player.size)
         player.physicsBody?.isDynamic = true
         player.physicsBody?.categoryBitMask = PhysicsCategory.player
         player.physicsBody?.contactTestBitMask = PhysicsCategory.monster
@@ -248,39 +255,37 @@ class GameScene: SKScene {
         for touch in (touches) {
             let location = touch.location(in: self)
             if(location.y < frame.height/2){
-            if(location.x < size.width/2){
-                touchLeft = true
-                touchRight = false
-                Attack()
-                print("Left")
-            } else if(location.x > size.width/2) {
-                touchRight = true
-                touchLeft = false
-                Attack()
-                print("Right")
-                
-            }
-        }
-            else if(location.y > frame.height/2){
                 if(location.x < size.width/2){
                     touchLeft = true
                     touchRight = false
-                    //Attack()
-                    Shoot()
+                    Attack()
                     print("Left")
                 } else if(location.x > size.width/2) {
                     touchRight = true
                     touchLeft = false
-                    //Attack()
-                    Shoot()
+                    Attack()
                     print("Right")
                     
                 }
+                
+            }
+            else if(location.y > frame.height/2){
+                if(location.x < size.width/2){
+                    touchLeft = true
+                    touchRight = false
+                    print("Left")
+                    // Shoot()
+                } else if(location.x > size.width/2) {
+                    touchRight = true
+                    touchLeft = false
+                    // Shoot()
+                }
+                Shoot()
             }
             /*else {  //x is between -width / 4 and width / 4
-                touchMiddle = true
-                print("Middle")
-            }*/
+             touchMiddle = true
+             print("Middle")
+             }*/
         }
     }
     func addMonster() {
@@ -334,41 +339,30 @@ class GameScene: SKScene {
         monster.physicsBody?.isDynamic = true // 2
         monster.physicsBody?.categoryBitMask = PhysicsCategory.monster // 3
         monster.physicsBody?.contactTestBitMask = PhysicsCategory.player // 4
+        monster.physicsBody?.contactTestBitMask = PhysicsCategory.projectile // 4
         monster.physicsBody?.collisionBitMask = PhysicsCategory.none // 5
         // Determine speed of the monster
-        /* monster.physicsBody?.velocity = self.physicsBody!.velocity
-         if(num == 0){
-         monster.physicsBody?.applyImpulse(CGVector(dx: -1 * random(min: 3.0, max: 5.0),dy: 0))
-         
-         }
-         else{
-         monster.physicsBody?.applyImpulse(CGVector(dx: random(min: 3.0, max: 5.0),dy: 0))
-         
-         }*/
         let actualDuration = random(min: CGFloat(3.0), max: CGFloat(5.0))
         // Create the actions
         var alienDir = -1
         if(monster.position.x < size.width){
             alienDir = +1
         }
-        let actionMove = SKAction.move(to: CGPoint(x:player.position.x - CGFloat(alienDir*20) ,y: 80),
+        let actionMove = SKAction.move(to: CGPoint(x:player.position.x - CGFloat(alienDir*10) ,y: 80),
                                        duration: TimeInterval(actualDuration))
         let actionMoveDone: SKAction = SKAction.removeFromParent()
-        /*if ((monster.position.x < player.position.x + 150 && monster.position.x > size.width/2) || (monster.position.x > player.position.x - 150 && monster.position.x < size.width/2 )){
-         monster.removeAction(forKey: "alienWalk")
-         monster.run(alienAttack,withKey: "alienattack")
-         }*/
         let loseAction = SKAction.run() { [weak self] in // // //
             guard let `self` = self else { return }
-                let reveal = SKTransition.fade(withDuration: 0.5)
-                let gameOverScene = GameOverScene(size: self.size, won: false, incredibile: score)
-                self.view?.presentScene(gameOverScene, transition: reveal)
+            let reveal = SKTransition.fade(withDuration: 0.5)
+            let gameOverScene = GameOverScene(size: self.size, won: false, incredibile: score)
+            self.view?.presentScene(gameOverScene, transition: reveal)
         }
-        monster.run(SKAction.sequence([actionMove,loseAction,SKAction.wait(forDuration: 20),actionMoveDone]))
-
+        monster.run(SKAction.sequence([actionMove,loseAction,SKAction.wait(forDuration: 10),actionMoveDone]))
+        
     }
     func baseballBatDidCollideWithMonster(player: SKSpriteNode, monster: SKSpriteNode) {
-      print("Hit")
+        monster.physicsBody = nil
+        print("Hit")
         wasHit = false
         run(SKAction.playSoundFileNamed("deathAlien", waitForCompletion: false))
         monster.physicsBody = nil
@@ -388,77 +382,129 @@ class GameScene: SKScene {
                 monster.removeFromParent()
             })
         }
+        monstersDestroyed += 1
+        score = monstersDestroyed * 100
+        if monstersDestroyed % 20 == 0 {
+            lvlSel += 1
+        }
         
+    }
+    func shotGunHit(projectile: SKSpriteNode, monster: SKSpriteNode){
+        print("UpHit")
+        projectile.removeFromParent()
+        run(SKAction.playSoundFileNamed("deathAlien", waitForCompletion: false))
+        monster.physicsBody = nil
+        monster.removeAction(forKey: "pistrelo")
+        monster.run(pDeadAnima,completion:{
+            monster.speed = 0.1
+            print("isDead")
+            monster.removeFromParent()
+        })
         //monsterNoPhysics.removeFromParent()
         monstersDestroyed += 1
         score = monstersDestroyed * 100
         if monstersDestroyed % 20 == 0 {
-          lvlSel += 1
-        }
-
-    }
-    func shotGunHit(player: SKSpriteNode, monster: SKSpriteNode){
-        print("UpHit")
-          wasUpHit = false
-          run(SKAction.playSoundFileNamed("deathAlien", waitForCompletion: false))
-          monster.physicsBody = nil
-          monster.removeAction(forKey: "pistrelo")
-          
-          monster.run(pDeadAnima,completion:{
-              monster.speed = 0.1
-              print("isDead")
-              monster.removeFromParent()
-          })
-          //monsterNoPhysics.removeFromParent()
-          monstersDestroyed += 1
-          score = monstersDestroyed * 100
-          if monstersDestroyed % 20 == 0 {
             lvlSel += 1
-          }
+        }
     }
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        // 1 - Choose one of the touches to work with
+        guard let touch = touches.first else {
+            return
+        }
+        let touchLocation = touch.location(in: self)
+        
+        // 2 - Set up initial location of projectile
+        let projectile = SKSpriteNode(imageNamed: "projectile")
+        projectile.size = CGSize(width: 24, height: 24)
+        projectile.position = player.position
+        projectile.zPosition = 3
+        projectile.physicsBody = SKPhysicsBody(circleOfRadius: projectile.size.width/2)
+        projectile.physicsBody?.isDynamic = true
+        projectile.physicsBody?.categoryBitMask = PhysicsCategory.projectile
+        projectile.physicsBody?.contactTestBitMask = PhysicsCategory.monster
+        projectile.physicsBody?.collisionBitMask = PhysicsCategory.none
+        projectile.physicsBody?.usesPreciseCollisionDetection = true
+        // 3 - Determine offset of location to projectile
+        let offset = touchLocation - projectile.position
+        
+        // 4 - Bail out if you are shooting down or backwards
+        // if offset.x < 0 { return }
+        
+        // 5 - OK to add now - you've double checked position
+        if(touchLocation.y >= frame.midY)
+        {addChild(projectile)}
+        
+        // 6 - Get the direction of where to shoot
+        let direction = offset.normalized()
+        
+        // 7 - Make it shoot far enough to be guaranteed off screen
+        let shootAmount = direction * 1000
+        
+        // 8 - Add the shoot amount to the current position
+        let realDest = shootAmount + projectile.position
+        
+        // 9 - Create the actions
+        let actionMove = SKAction.move(to: realDest, duration: 2.0)
+        let actionMoveDone = SKAction.removeFromParent()
+        projectile.run(SKAction.sequence([actionMove, actionMoveDone]))
+    }
+    
 }
 extension GameScene: SKPhysicsContactDelegate {
     func didBegin(_ contact: SKPhysicsContact) {
-      // 1
-      var firstBody: SKPhysicsBody
-      var secondBody: SKPhysicsBody
-      if contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask {
-          firstBody = contact.bodyA
-        secondBody = contact.bodyB
-      } else {
-        firstBody = contact.bodyB
-        secondBody = contact.bodyA
-      }
-     
-      // 2
-      if ((firstBody.categoryBitMask & PhysicsCategory.monster != 0) &&
-          (secondBody.categoryBitMask & PhysicsCategory.player != 0)) {
-        if let monster = firstBody.node as? SKSpriteNode,
-          let player = secondBody.node as? SKSpriteNode {
-            
-            if(player.size == CGSize(width: 254, height: 182)){
-                wasHit = true
-            }
-            if(monster.size == CGSize(width: 96.0, height: 96.0) ){
-                wasUpHit = true
-            }
-            if monster.texture == SKTexture(imageNamed: "AlienWalking1")
-            { monster.removeAction(forKey: "alienWalk")
-                monster.run(alienAttack, withKey: "alienattack")
-            }
-            if(((touchRight == true && monster.position.x > size.width/2) || (touchLeft == true && monster.position.x<size.width/2)) && wasHit == true){
-                baseballBatDidCollideWithMonster(player: player, monster: monster)
-                if(touchLeft){touchLeft = false}
-                else{touchRight = false}
-            }
-            else if(((touchRight == true && monster.position.x > size.width/2) || (touchLeft == true && monster.position.x<size.width/2)) && wasUpHit == true){
-                shotGunHit(player: player, monster: monster)
-                if(touchLeft){touchLeft = false}
-                else{touchRight = false}
-            }
-
+        // 1
+        var firstBody: SKPhysicsBody
+        var secondBody: SKPhysicsBody
+        var thirdBody : SKPhysicsBody
+        //var thirdBody: SKPhysicsBody
+        if contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask{
+            firstBody = contact.bodyA
+            secondBody = contact.bodyB
+            thirdBody = contact.bodyB
+        } else {
+            firstBody = contact.bodyB
+            secondBody = contact.bodyA
+            thirdBody = contact.bodyA
         }
-      }
+        
+        // 2
+        if ((firstBody.categoryBitMask & PhysicsCategory.monster != 0) &&
+            (secondBody.categoryBitMask & PhysicsCategory.player != 0)) {
+            if let monster = firstBody.node as? SKSpriteNode,
+               let player = secondBody.node as? SKSpriteNode{
+                if(player.size == CGSize(width: 254, height: 182)){
+                    wasHit = true
+                }
+                /*if(monster.size == CGSize(width: 96.0, height: 96.0) ){
+                 wasUpHit = true
+                 }*/
+                if (monster.size == CGSize(width: 128.0, height: 128.0))
+                { monster.removeAction(forKey: "alienWalk")
+                    monster.run(alienAttack, withKey: "alienattack")
+                }
+                if(((touchRight == true && monster.position.x > size.width/2) || (touchLeft == true && monster.position.x<size.width/2)) && wasHit == true){
+                    baseballBatDidCollideWithMonster(player: player, monster: monster)
+                    if(touchLeft){touchLeft = false}
+                    else{touchRight = false}
+                }
+                /*plelse if(((touchRight == true && monster.position.x > size.width/2) || (touchLeft == true && monster.position.x<size.width/2)) && wasUpHit == true){
+                 shotGunHit(projectile: projectile, monster: monster)
+                 if(touchLeft){touchLeft = false}
+                 else{touchRight = false}
+                 }*/
+            }
+        }
+         if ((firstBody.categoryBitMask & PhysicsCategory.monster != 0) &&
+            (thirdBody.categoryBitMask & PhysicsCategory.projectile != 0)) {
+            if let monster = firstBody.node as? SKSpriteNode,
+               let projectile = thirdBody.node as? SKSpriteNode{
+                if ((monster.size == CGSize(width: 96.0, height: 96.0)) && projectile.size == CGSize(width: 24, height: 24)){
+                    print(projectile.size)
+                    shotGunHit(projectile: projectile, monster: monster)
+                }
+            }
+        }
     }
-
+    
 }

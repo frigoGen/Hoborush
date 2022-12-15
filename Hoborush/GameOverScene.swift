@@ -53,13 +53,14 @@ class GameOverScene: SKScene {
                 player.removeFromParent()
                 SKAction.wait(forDuration: 8.0)
                 gameOverNode.removeFromParent()
-                let textFieldFrame = CGRect(origin: CGPoint(x: self.frame.minX + 50, y: self.frame.minY + 50), size: CGSize(width: 500, height: 30))
-                self.bottone.size = CGSize(width: 150, height: 80)
-                self.bottone.position = CGPoint(x: self.frame.maxX - self.bottone.size.width - 10, y: self.frame.maxY - self.bottone.size.height - 25)
+                let textFieldFrame = CGRect(origin: CGPoint(x: self.frame.minX + 50, y: self.frame.minY + 50), size: CGSize(width: 500, height: 50))
+                self.bottone.size = CGSize(width: 150, height: 40)
+                self.bottone.position = CGPoint(x: self.frame.maxX - self.bottone.size.width - 15, y: self.frame.maxY - self.bottone.size.height - 25)
                 self.textField = UITextField(frame: textFieldFrame)
                 self.textField.backgroundColor = SKColor.systemYellow
                 self.textField.placeholder = "Enter your Name"
                 self.textField.font = UIFont(name: "Emulogic",size: 20)
+                SKAction.wait(forDuration: 2)
                 self.view?.addSubview(self.textField)
                 self.addChild(self.bottone)
                 
