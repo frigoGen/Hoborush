@@ -32,8 +32,8 @@ class GameViewController: UIViewController {
        //     let scene3 = LeaderBoardScene(size: view.bounds.size)
       //  let scene4 = GameOverScene(size: view.bounds.size, won: false, incredibile: 30)
             let skView = view as! SKView
-            skView.showsFPS = true
-            skView.showsNodeCount = true
+            //skView.showsFPS = true
+            //skView.showsNodeCount = true
             skView.ignoresSiblingOrder = true
             scene1.scaleMode = .resizeFill
             skView.presentScene(scene1)
