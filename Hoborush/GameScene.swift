@@ -56,6 +56,7 @@ extension CGPoint {
 }
 
 class GameScene: SKScene {
+    var alreadyShot: Bool = false
     var touchLeft : Bool = false
     var touchRight : Bool = false
     var attendi : Bool = false
@@ -126,10 +127,10 @@ class GameScene: SKScene {
                             
                         })
                     }},
-                    SKAction.run{ [self] in if (self.attendi){
+                    /*SKAction.run{ [self] in if (self.attendi){
                         SKAction.wait(forDuration: 10)
                         attendi = false
-                    }},
+                    }},*/
                     SKAction.wait(forDuration: 1.0)
                 ])
             ))
@@ -157,6 +158,7 @@ class GameScene: SKScene {
         
     }
     func Attack(){
+        if(turn == false){
         run(SKAction.playSoundFileNamed("crit", waitForCompletion: false))
         if(touchRight){
             if(!(player.xScale > 0)){
@@ -171,7 +173,7 @@ class GameScene: SKScene {
         player.removeAction(forKey: "animate")
         player.size = CGSize(width: 254, height: 182)
         player.position = CGPoint(x: player.position.x, y: 80 + 30)
-        if(turn == false){
+        
             turn = true
             player.run(attAnimation,completion:{
                 self.player.position = CGPoint(x: self.size.width/2, y: 80)
@@ -185,7 +187,8 @@ class GameScene: SKScene {
         
     }
     func Shoot(){
-        
+        if(turn == false && alreadyShot == false){
+        self.run(SKAction.playSoundFileNamed("explosion-03", waitForCompletion: false))
         if(touchRight){
             if(!(player.xScale > 0)){
                 player.xScale = player.xScale * -1
@@ -196,15 +199,15 @@ class GameScene: SKScene {
                 player.xScale = player.xScale * -1
             }
         }
-        wasUpHit = true
+        
+        //wasUpHit = true
         player.removeAction(forKey: "animate")
         player.size = CGSize(width: 180, height: 190)
         player.position = CGPoint(x: player.position.x, y: 80)
-        turn = false
-        if(turn == false){
+        //turn = false
+        
             turn = true
             player.run(shotAnim,completion:{
-                self.run(SKAction.playSoundFileNamed("explosion-03", waitForCompletion: false))
                 self.player.position = CGPoint(x: self.size.width/2, y: 80)
                 self.player.size = CGSize(width: 128, height: 128)
                 self.player.run(idleanimation,withKey: "animate")
@@ -212,6 +215,17 @@ class GameScene: SKScene {
                 
             })
             
+        }
+        else if(turn == false && alreadyShot == true){
+            let lowAmmo = SKLabelNode(fontNamed: "Emulogic")
+            lowAmmo.fontSize = 10
+            lowAmmo.fontColor = .white
+            lowAmmo.position = CGPoint(x: frame.midX, y: frame.midX)
+            lowAmmo.text = "LOW AMMO...WAIT"
+            lowAmmo.zPosition = 4
+            addChild(lowAmmo)
+            SKAction.wait(forDuration: 3)
+            //lowAmmo.removeFromParent()
         }
         
     }
@@ -392,6 +406,7 @@ class GameScene: SKScene {
     func shotGunHit(projectile: SKSpriteNode, monster: SKSpriteNode){
         print("UpHit")
         projectile.removeFromParent()
+        alreadyShot = false
         run(SKAction.playSoundFileNamed("deathAlien", waitForCompletion: false))
         monster.physicsBody = nil
         monster.removeAction(forKey: "pistrelo")
@@ -400,7 +415,6 @@ class GameScene: SKScene {
             print("isDead")
             monster.removeFromParent()
         })
-        //monsterNoPhysics.removeFromParent()
         monstersDestroyed += 1
         score = monstersDestroyed * 100
         if monstersDestroyed % 20 == 0 {
@@ -432,8 +446,10 @@ class GameScene: SKScene {
         // if offset.x < 0 { return }
         
         // 5 - OK to add now - you've double checked position
-        if(touchLocation.y >= frame.midY)
-        {addChild(projectile)}
+        if(touchLocation.y >= frame.midY && alreadyShot == false )
+        {addChild(projectile)
+            alreadyShot = true
+        }
         
         // 6 - Get the direction of where to shoot
         let direction = offset.normalized()
@@ -447,7 +463,8 @@ class GameScene: SKScene {
         // 9 - Create the actions
         let actionMove = SKAction.move(to: realDest, duration: 2.0)
         let actionMoveDone = SKAction.removeFromParent()
-        projectile.run(SKAction.sequence([actionMove, actionMoveDone]))
+        let go = SKAction.run{self.alreadyShot = false}
+        projectile.run(SKAction.sequence([actionMove, actionMoveDone, go]))
     }
     
 }

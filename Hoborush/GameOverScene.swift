@@ -55,7 +55,7 @@ class GameOverScene: SKScene {
                 gameOverNode.removeFromParent()
                 let textFieldFrame = CGRect(origin: CGPoint(x: self.frame.minX + 50, y: self.frame.minY + 50), size: CGSize(width: 500, height: 50))
                 self.bottone.size = CGSize(width: 150, height: 40)
-                self.bottone.position = CGPoint(x: self.frame.maxX - self.bottone.size.width - 15, y: self.frame.maxY - self.bottone.size.height - 25)
+                self.bottone.position = CGPoint(x: self.frame.maxX - self.bottone.size.width - 15, y: self.frame.maxY - self.bottone.size.height - 35)
                 self.textField = UITextField(frame: textFieldFrame)
                 self.textField.backgroundColor = SKColor.systemYellow
                 self.textField.placeholder = "Enter your Name"
