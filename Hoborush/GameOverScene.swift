@@ -15,14 +15,7 @@ class GameOverScene: SKScene {
     var textField: UITextField!
     var bottone = SKSpriteNode(imageNamed: "enter")
     
-    /*override func didMove(to view: SKView) {
 
-            let textFieldFrame = CGRect(origin: CGPoint(x: 50, y: 50), size: CGSize(width: 200, height: 30))
-            textField = UITextField(frame: textFieldFrame)
-            textField.backgroundColor = SKColor.systemYellow
-            textField.placeholder = "Type name"
-            view.addSubview(textField)
-        }*/
     init(size: CGSize, won:Bool, incredibile: Int) {
         super.init(size: size)
         
@@ -30,15 +23,9 @@ class GameOverScene: SKScene {
     var scene: SKScene!
     // 2
     giocatore = salvataggio(nome: "ABC",punti: incredibile)
-    //let message = won ? "You Won!" : "You Lose :["
     // 3
     let gameOverNode = SKSpriteNode(imageNamed: "gameover1")
-    /*let label = SKLabelNode(fontNamed: "Chalkduster")
-    label.text = message
-    label.fontSize = 20
-    label.fontColor = SKColor.white
-        label.position = CGPoint(x: size.width/4, y: size.height - 20)
-    addChild(label)*/
+    
         if(!won){
             let player = SKSpriteNode(imageNamed: "HoboDying1")
             player.size = CGSize(width: 128, height: 128)
@@ -61,7 +48,9 @@ class GameOverScene: SKScene {
                 self.textField.placeholder = "Enter your Name"
                 self.textField.font = UIFont(name: "Emulogic",size: 20)
                 SKAction.wait(forDuration: 2)
-                self.view?.addSubview(self.textField)
+                UIView.transition(with: self.view!, duration: 1.0, options: [.transitionCrossDissolve], animations: {
+                    self.view?.addSubview(self.textField)
+                }, completion: nil)
                 self.addChild(self.bottone)
                 
                 

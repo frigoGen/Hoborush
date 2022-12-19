@@ -27,6 +27,7 @@ class MainMenuScene: SKScene {
         playButton.size = CGSize(width: 150, height: 40)
          leaderButton.size = playButton.size
          leaderButton.position = CGPoint(x: playButton.position.x, y: playButton.position.y - leaderButton.size.height - 15)
+         leaderButton.zPosition = 1
          eggButton.position = CGPoint(x: frame.minX + 70, y: frame.maxY - 50)
          eggButton.fillColor = .darkGray
          //eggButton.alpha = 0.2

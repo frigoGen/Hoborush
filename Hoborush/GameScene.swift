@@ -223,16 +223,17 @@ class GameScene: SKScene {
             })
             
         }
-        else if(turn == false && alreadyShot == true){
+         else if(turn == false && alreadyShot == true){
             let lowAmmo = SKLabelNode(fontNamed: "Emulogic")
             lowAmmo.fontSize = 10
-            lowAmmo.fontColor = .white
-            lowAmmo.position = CGPoint(x: frame.midX, y: frame.midX)
+             lowAmmo.fontColor = .white
+             lowAmmo.position = CGPoint(x: scoreShower.position.x, y: scoreShower.position.y - CGFloat(20))
             lowAmmo.text = "LOW AMMO...WAIT"
+            print("Game")
             lowAmmo.zPosition = 4
-            addChild(lowAmmo)
-            SKAction.wait(forDuration: 3)
-            //lowAmmo.removeFromParent()
+              addChild(lowAmmo)
+             lowAmmo.run(SKAction.sequence([SKAction.wait(forDuration: 1),SKAction.removeFromParent()]))
+            
         }
         
     }
@@ -417,7 +418,10 @@ class GameScene: SKScene {
                 monster.removeFromParent()
             })
         }
-        monstersDestroyed += 1
+        if(monster.size == CGSize(width: 132, height: 132) || monster.size == CGSize(width: 96, height: 96)){monstersDestroyed += 2}
+        //else if(monster.size == CGSize(width: 96, height: 96)){}
+        else{
+            monstersDestroyed += 1}
         score = monstersDestroyed * 100
         if monstersDestroyed % 20 == 0 {
             lvlSel += 1
@@ -435,7 +439,7 @@ class GameScene: SKScene {
                 //monster.speed = 0.1
                 print("isDead")
                 monster.removeFromParent()
-                self.monstersDestroyed += 2
+                self.monstersDestroyed += 1
                 score = self.monstersDestroyed * 100
                 if self.monstersDestroyed % 20 == 0 {
                     self.lvlSel += 1
@@ -459,7 +463,7 @@ class GameScene: SKScene {
                 print("isDead")
                 monster.removeFromParent()
                 self.monstersDestroyed += 1
-                score = self.monstersDestroyed * 100
+                score = score + 50
                 if self.monstersDestroyed % 20 == 0 {
                     self.lvlSel += 1
                 }
