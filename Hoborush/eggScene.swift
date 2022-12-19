@@ -30,8 +30,8 @@ class eggScene: SKScene {
         }
         //let wow: [SKTexture] = ["egg","devs","protoA","protoMon","protoTit","table","protoAlV","usMil"]
         egg.texture = wow.randomElement()
-        let coloriPazzi = [UIColor.systemTeal,UIColor.systemCyan,UIColor.systemMint]
-        backgroundColor = coloriPazzi.randomElement()!
+        //let coloriPazzi = [UIColor.systemTeal,UIColor.systemCyan,UIColor.systemMint]
+       // backgroundColor = coloriPazzi.randomElement()!
         egg.position = CGPoint(x: frame.midX,y: frame.midY + 20)
         egg.setScale(1/2)
         Button.size = CGSize(width: 80, height: 45)

@@ -18,7 +18,7 @@ var testoPazzo = SKLabelNode(fontNamed: "Emulogic")
 class LeaderBoardScene: SKScene {
      init(size: CGSize,score: Int) {
         super.init(size: size)
-        let coloriPazzi = [UIColor.systemYellow,UIColor.systemGray,UIColor.systemBrown]
+       // let coloriPazzi = [UIColor.systemYellow,UIColor.systemGray,UIColor.systemBrown]
         backgroundColor = .black
         let scores = loadScores()
         let personalScore = SKLabelNode(fontNamed: "Emulogic")
@@ -44,7 +44,7 @@ class LeaderBoardScene: SKScene {
             let rank = "#\(index + 1) \(scores[index].nome): \(scores[index].punti)"
             let scoreNode = SKLabelNode(fontNamed: "Emulogic")
             scoreNode.text = rank
-            scoreNode.fontColor = coloriPazzi[index]
+         //   scoreNode.fontColor = coloriPazzi[index]
             scoreNode.position = CGPoint(x: frame.midX, y: scoreHeight)
             scoreHeight -= scoreNode.fontSize + 25
             addChild(scoreNode)
