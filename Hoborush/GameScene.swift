@@ -56,10 +56,13 @@ extension CGPoint {
 }
 
 class GameScene: SKScene {
+    let pauseButton = SKSpriteNode(imageNamed: "pause")
+    let resumeButton = SKSpriteNode(imageNamed: "resume")
     var alreadyShot: Bool = false
     var ufo = SKSpriteNode(imageNamed: "uforay1")
     var touchLeft : Bool = false
     var touchRight : Bool = false
+    var touchMiddle : Bool = false
     var attendi : Bool = false
     var turn : Bool = false
     var wasHit: Bool = false
@@ -78,6 +81,7 @@ class GameScene: SKScene {
     var precLvl: Int = 1
     var mike : CGFloat = 1.0
     override func didMove(to view: SKView) {
+        scene?.view?.isPaused = false
         score = 0
         background.position = CGPoint(x: size.width/2, y: size.height/2)
         background.size = frame.size
@@ -147,6 +151,7 @@ class GameScene: SKScene {
         //HoboAttack()
         //SKAction.removeFromParent()
         //let actionMove = SKAction.run(HoboAttack)
+       // pauseButton.texture = SKTexture(imageNamed: "pause")
         bin.size = CGSize(width: 128, height: 128)
         bin.zPosition = 1
         bin.position = CGPoint(x: frame.minX + 70, y: player.position.y + 10)
@@ -156,7 +161,14 @@ class GameScene: SKScene {
         scoreShower.fontSize = 20
         scoreShower.position = CGPoint(x: frame.width/2,y: frame.maxY - (1.3*scoreShower.fontSize))
         scoreShower.zPosition = 1
+        pauseButton.position = CGPoint(x: frame.midX, y: frame.minY + 30)
+        pauseButton.zPosition = 4
+        pauseButton.size = CGSize(width: 100, height: 16)
+        resumeButton.position = CGPoint(x: frame.midX, y: frame.minY + 30)
+        resumeButton.zPosition = 4
+        resumeButton.size = CGSize(width: 100, height: 16)
         bin.run(binAnim)
+        addChild(pauseButton)
         addChild(bin)
         addChild(scoreShower)
     }
@@ -276,6 +288,26 @@ class GameScene: SKScene {
     override func touchesBegan(_ touches: Set<UITouch>,with event: UIEvent?){
         for touch in (touches) {
             let location = touch.location(in: self)
+            let node = self.atPoint(location) //start pause
+            if node == pauseButton{
+                pauseButton.run(SKAction.removeFromParent() ,completion: {
+                    SKAction.wait(forDuration: 2)
+                })
+                addChild(resumeButton)
+                print("gae")
+                
+                scene?.view?.isPaused = true
+            }
+             if node == resumeButton {
+                 resumeButton.run(SKAction.removeFromParent() ,completion: {
+                     SKAction.wait(forDuration: 2)
+                 })
+                 addChild(pauseButton)
+
+                scene?.view?.isPaused = false
+                print("joy")
+                
+            }   // end pause
             if(location.y < frame.height/2){
                 if(location.x < size.width/2){
                     touchLeft = true
